@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Equalize";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Equalize Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+    <style>
+        .card-header {
+            background-color: #dc3545; 
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+        </header>
+
+        <nav>
+
+        </nav>
+
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    <h3>معلومات الطالب</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="previousInstitution">المنشأة السابقة</label>
+                                <select class="form-control" id="previousInstitution">
+                                    <option value="">إختر المنشأة</option>
+                                    <option value="institution1">جامعة البتراء</option>
+                                    <option value="institution2">جامعة الزيتونة</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="major">التخصص</label>
+                                <select class="form-control" id="major">
+                                    <option value="">إختر التخصص</option>
+                                    <option value="major1">علم الحاسوب</option>
+                                    <option value="major2">الذكاء الاصطناعي</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="studentName">اسم الطالب</label>
+                                <input type="text" class="form-control" id="studentName">
+                            </div>
+                            <div class="form-group">
+                                <label for="studentId">الرقم الجامعي للطالب</label>
+                                <input type="text" class="form-control" id="studentId">
+                            </div>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="form-group">
+                                <label for="nationality">الجنسية</label>
+                                <select class="form-control" id="nationality">
+                                    <option value="">إختر الجنسية</option>
+                                    <option value="jordanian">اردني</option>
+                                    <option value="foreigner">اجنبي</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Case">الحالة</label>
+                                <select class="form-control" id="Case">
+                                    <option value="Case">إختر الحالة</option>
+                                    <option value="ComingFromUniversity">مجسر</option>
+                                    <option value="ComingFromCollege">منتقل</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>اختيار المواد المجتازة</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>وصف المادة</th>
+                                <th>وزن المادة</th>
+                                <th>اسم المادة</th>
+                                <th>مجتازة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><input type="checkbox"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="button" class="btn btn-primary btn-danger">Equalize</button>
+                <button type="button" class="btn btn-secondary btn-danger">Print as PDF</button>
+            </div>
+        </main>
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

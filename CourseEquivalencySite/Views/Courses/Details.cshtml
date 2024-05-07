@@ -1,0 +1,47 @@
+﻿@model CourseEquivalencySite.Models.Course
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h1>تفاصيل المادة</h1>
+    </div>
+
+    <hr />
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CourseID)</th>
+                        <td>@Html.DisplayFor(model => model.CourseID)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CourseName)</th>
+                        <td>@Html.DisplayFor(model => model.CourseName)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CourseDescription)</th>
+                        <td>@Html.DisplayFor(model => model.CourseDescription)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CourseWeight)</th>
+                        <td>@Html.DisplayFor(model => model.CourseWeight)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CourseInstitution)</th>
+                        <td>@Html.DisplayFor(model => model.CourseInstitution)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a asp-action="Edit" asp-route-id="@Model?.CourseID" class="btn btn-lg btn-danger rounded-pill">تعديل</a>
+        <a asp-action="Index" class="btn btn-lg btn-danger rounded-pill">الرجوع للقائمة</a>
+    </div>
+</div>

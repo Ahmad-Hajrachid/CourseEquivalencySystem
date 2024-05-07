@@ -1,0 +1,60 @@
+﻿@model CourseEquivalencySite.Models.Course
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h1>تعديل</h1>
+        <h4>المواد</h4>
+    </div>
+
+    <hr />
+
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="CourseID" />
+
+                <div class="form-group">
+                    <label asp-for="CourseID" class="control-label"></label>
+                    <input asp-for="CourseID" class="form-control" />
+                    <span asp-validation-for="CourseID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CourseName" class="control-label"></label>
+                    <input asp-for="CourseName" class="form-control" />
+                    <span asp-validation-for="CourseName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CourseDescription" class="control-label"></label>
+                    <input asp-for="CourseDescription" class="form-control" />
+                    <span asp-validation-for="CourseDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CourseWeight" class="control-label"></label>
+                    <input asp-for="CourseWeight" class="form-control" />
+                    <span asp-validation-for="CourseWeight" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CourseInstitution" class="control-label"></label>
+                    <input asp-for="CourseInstitution" class="form-control" />
+                    <span asp-validation-for="CourseInstitution" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center mt-4 ">
+                    <input type="submit" value="حفظ" class="btn btn-lg btn-danger rounded-pill" />
+                    <a asp-action="Index" class="btn btn-lg btn-danger rounded-pill">الرجوع للقائمة</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
