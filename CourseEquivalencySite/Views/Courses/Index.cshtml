@@ -17,19 +17,19 @@
         <thead class="thead-dark">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.CourseID)
+                    @Html.DisplayNameFor(model => model.courseID)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CourseName)
+                    @Html.DisplayNameFor(model => model.courseName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CourseDescription)
+                    @Html.DisplayNameFor(model => model.courseDescription)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CourseWeight)
+                    @Html.DisplayNameFor(model => model.courseWeight)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CourseInstitution)
+                    @Html.DisplayNameFor(model => model.institutionId)
                 </th>
                 <th></th>
             </tr>
@@ -39,24 +39,24 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CourseID)
+                        @Html.DisplayFor(modelItem => item.courseID)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CourseName)
+                        @Html.DisplayFor(modelItem => item.courseName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CourseDescription)
+                        @Html.DisplayFor(modelItem => item.courseDescription)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CourseWeight)
+                        @Html.DisplayFor(modelItem => item.courseWeight)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CourseInstitution)
+                        @Html.DisplayFor(modelItem => item.institutionId)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.CourseID" class="btn btn-danger rounded-pill">تعديل</a> |
-                        <a asp-action="Details" asp-route-id="@item.CourseID" class="btn btn-danger rounded-pill">التفاصيل</a> |
-                        <a asp-action="Delete" asp-route-id="@item.CourseID" class="btn btn-danger rounded-pill">حذف</a>
+                        <a asp-action="Edit" asp-route-id="@item.courseID" class="btn btn-danger rounded-pill">تعديل</a> |
+                        <a asp-action="Details" asp-route-id="@item.courseID" class="btn btn-danger rounded-pill">التفاصيل</a> |
+                        <a asp-action="Delete" asp-route-id="@item.courseID" class="btn btn-danger rounded-pill">حذف</a>
                     </td>
                 </tr>
             }

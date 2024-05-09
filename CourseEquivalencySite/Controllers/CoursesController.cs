@@ -34,7 +34,7 @@ namespace CourseEquivalencySite.Controllers
             }
 
             var course = await _context.Course
-                .FirstOrDefaultAsync(m => m.CourseID == id);
+                .FirstOrDefaultAsync(m => m.courseID == id);
             if (course == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace CourseEquivalencySite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CourseID,CourseName,CourseDescription,CourseWeight,CourseInstitution")] Course course)
         {
-            if (id != course.CourseID)
+            if (id != course.courseID)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace CourseEquivalencySite.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CourseExists(course.CourseID))
+                    if (!CourseExists(course.courseID))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace CourseEquivalencySite.Controllers
             }
 
             var course = await _context.Course
-                .FirstOrDefaultAsync(m => m.CourseID == id);
+                .FirstOrDefaultAsync(m => m.courseID == id);
             if (course == null)
             {
                 return NotFound();
@@ -151,7 +151,7 @@ namespace CourseEquivalencySite.Controllers
 
         private bool CourseExists(int id)
         {
-            return _context.Course.Any(e => e.CourseID == id);
+            return _context.Course.Any(e => e.courseID == id);
         }
     }
 }

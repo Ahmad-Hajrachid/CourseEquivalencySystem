@@ -4,16 +4,19 @@ using CourseEquivalencySite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CourseEquivalencySite.Data.Migrations
+namespace CourseEquivalencySite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240509192632_initMig")]
+    partial class initMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,24 +27,92 @@ namespace CourseEquivalencySite.Data.Migrations
 
             modelBuilder.Entity("CourseEquivalencySite.Models.Course", b =>
                 {
-                    b.Property<int>("CourseID")
+                    b.Property<int>("courseID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("courseID"));
+
+                    b.Property<string>("courseDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("courseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("courseWeight")
+                        .HasColumnType("int");
+
+                    b.Property<int>("institutionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("majorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("courseID");
+
+                    b.HasIndex("institutionId");
+
+                    b.ToTable("Course");
+                });
+
+            modelBuilder.Entity("CourseEquivalencySite.Models.Institution", b =>
+                {
+                    b.Property<int>("institutionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("institutionID"));
+
+                    b.Property<string>("institutionName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("institutionID");
+
+                    b.ToTable("institutions");
+                });
+
+            modelBuilder.Entity("CourseEquivalencySite.Models.Major", b =>
+                {
+                    b.Property<int>("majorID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("majorID"));
+
+                    b.Property<int>("institutionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("majorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("majorID");
+
+                    b.ToTable("majors");
+                });
+
+            modelBuilder.Entity("CourseEquivalencySite.Models.Users", b =>
+                {
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("CourseDescription")
-                        .HasColumnType("string");
+                    b.Property<string>("userName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CourseName")
-                        .HasColumnType("string");
-
-                    b.Property<int>("CourseWeight")
-                        .HasColumnType("int");
+                    b.Property<string>("userPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Course");
+                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -244,6 +315,17 @@ namespace CourseEquivalencySite.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("CourseEquivalencySite.Models.Course", b =>
+                {
+                    b.HasOne("CourseEquivalencySite.Models.Institution", "institution")
+                        .WithMany()
+                        .HasForeignKey("institutionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("institution");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

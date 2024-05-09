@@ -16,24 +16,24 @@
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.CourseID)</th>
-                        <td>@Html.DisplayFor(model => model.CourseID)</td>
+                        <th>@Html.DisplayNameFor(model => model.courseID)</th>
+                        <td>@Html.DisplayFor(model => model.courseID)</td>
                     </tr>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.CourseName)</th>
-                        <td>@Html.DisplayFor(model => model.CourseName)</td>
+                        <th>@Html.DisplayNameFor(model => model.courseName)</th>
+                        <td>@Html.DisplayFor(model => model.courseName)</td>
                     </tr>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.CourseDescription)</th>
-                        <td>@Html.DisplayFor(model => model.CourseDescription)</td>
+                        <th>@Html.DisplayNameFor(model => model.courseDescription)</th>
+                        <td>@Html.DisplayFor(model => model.courseDescription)</td>
                     </tr>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.CourseWeight)</th>
-                        <td>@Html.DisplayFor(model => model.CourseWeight)</td>
+                        <th>@Html.DisplayNameFor(model => model.courseWeight)</th>
+                        <td>@Html.DisplayFor(model => model.courseWeight)</td>
                     </tr>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.CourseInstitution)</th>
-                        <td>@Html.DisplayFor(model => model.CourseInstitution)</td>
+                        <th>@Html.DisplayNameFor(model => model.institutionId)</th>
+                        <td>@Html.DisplayFor(model => model.institutionId)</td>
                     </tr>
                 </tbody>
             </table>
@@ -41,7 +41,7 @@
     </div>
 
     <div class="text-center mt-4">
-        <a asp-action="Edit" asp-route-id="@Model?.CourseID" class="btn btn-lg btn-danger rounded-pill">تعديل</a>
+        <a asp-action="Edit" asp-route-id="@Model?.courseID" class="btn btn-lg btn-danger rounded-pill">تعديل</a>
         <a asp-action="Index" class="btn btn-lg btn-danger rounded-pill">الرجوع للقائمة</a>
     </div>
 </div>
