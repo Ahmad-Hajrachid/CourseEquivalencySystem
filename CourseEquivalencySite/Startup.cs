@@ -1,4 +1,6 @@
 ﻿using CourseEquivalencySite.Data;
+using CourseEquivalencySite.Interfaces;
+using CourseEquivalencySite.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -25,7 +27,7 @@ namespace CourseEquivalencySite
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
-
+            services.AddScoped<IEquivalencyServices, EquivalencyServices>();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();

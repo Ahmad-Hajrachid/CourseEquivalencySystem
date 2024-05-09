@@ -51,7 +51,7 @@ namespace CourseEquivalencySite.Migrations
 
                     b.HasIndex("institutionId");
 
-                    b.ToTable("Course");
+                    b.ToTable("Course", (string)null);
                 });
 
             modelBuilder.Entity("CourseEquivalencySite.Models.Institution", b =>
@@ -68,7 +68,7 @@ namespace CourseEquivalencySite.Migrations
 
                     b.HasKey("institutionID");
 
-                    b.ToTable("institutions");
+                    b.ToTable("institutions", (string)null);
                 });
 
             modelBuilder.Entity("CourseEquivalencySite.Models.Major", b =>
@@ -88,7 +88,7 @@ namespace CourseEquivalencySite.Migrations
 
                     b.HasKey("majorID");
 
-                    b.ToTable("majors");
+                    b.ToTable("majors", (string)null);
                 });
 
             modelBuilder.Entity("CourseEquivalencySite.Models.Users", b =>
@@ -109,7 +109,7 @@ namespace CourseEquivalencySite.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("users");
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -15,7 +15,8 @@ namespace CourseEquivalencySite.Controllers
         }
         public IActionResult Equalize()
         {
-            var data = _services.getInstitutions;
+            var data = _services.getInstitutions();
+          
             return View(data);
         }
     }
