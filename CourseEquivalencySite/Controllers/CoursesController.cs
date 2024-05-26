@@ -7,65 +7,44 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CourseEquivalencySite.Data;
 using CourseEquivalencySite.Models;
+using CourseEquivalencySite.Interfaces;
 
 namespace CourseEquivalencySite.Controllers
 {
     public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IEquivalencyServices _services;
 
-        public CoursesController(ApplicationDbContext context)
+        public CoursesController(ApplicationDbContext context, IEquivalencyServices services)
         {
             _context = context;
+            _services = services;
         }
-
-        // GET: Courses
-        public async Task<IActionResult> Index()
+        public IActionResult index()
         {
-            return View(await _context.Course.ToListAsync());
+            var data =_services.getInstitutions();
+            return View(data);
         }
-
-        // GET: Courses/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var data = _services.getCourse(id);
 
-            var course = await _context.Course
-                .FirstOrDefaultAsync(m => m.courseID == id);
-            if (course == null)
-            {
-                return NotFound();
-            }
-
-            return View(course);
+            return View(data);
         }
-
-        // GET: Courses/Create
         public IActionResult Create()
         {
+
             return View();
         }
-
-        // POST: Courses/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseID,CourseName,CourseDescription,CourseWeight,CourseInstitution")] Course course)
+        public IActionResult Create(string courseNameAR, string courseNameEN, string courseDescreptionAR, string courseDescreptionEN, int courseWeightAR, int courseWeightEN, int institutionId, int majorId)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(course);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(course);
+            _services.addCourse(courseNameAR, courseNameEN, courseDescreptionAR, courseDescreptionEN,courseWeightAR,courseWeightEN,institutionId,majorId);
+            return RedirectToAction(nameof(index));
         }
 
-        // GET: Courses/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,7 +52,7 @@ namespace CourseEquivalencySite.Controllers
                 return NotFound();
             }
 
-            var course = await _context.Course.FindAsync(id);
+            var course = await _context.course.FindAsync(id);
             if (course == null)
             {
                 return NotFound();
@@ -81,77 +60,21 @@ namespace CourseEquivalencySite.Controllers
             return View(course);
         }
 
-        // POST: Courses/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CourseID,CourseName,CourseDescription,CourseWeight,CourseInstitution")] Course course)
+        public async Task<IActionResult> Edit(int id, string courseNameAR, string courseNameEN, string courseDescreptionAR, string courseDescreptionEN, int courseWeightAR, int courseWeightEN, int institutionId, int majorId)
         {
-            if (id != course.courseID)
-            {
-                return NotFound();
-            }
+            _services.EditCourse(id, courseNameAR, courseNameEN, courseDescreptionAR, courseDescreptionEN, courseWeightAR, courseWeightEN, institutionId, majorId);
+            return RedirectToAction(nameof(index));
+        }
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+             _services.deleteCourse(id);
+            return Json(new { success = true });
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(course);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CourseExists(course.courseID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(course);
         }
 
-        // GET: Courses/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var course = await _context.Course
-                .FirstOrDefaultAsync(m => m.courseID == id);
-            if (course == null)
-            {
-                return NotFound();
-            }
 
-            return View(course);
-        }
-
-        // POST: Courses/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var course = await _context.Course.FindAsync(id);
-            if (course != null)
-            {
-                _context.Course.Remove(course);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool CourseExists(int id)
-        {
-            return _context.Course.Any(e => e.courseID == id);
-        }
     }
 }

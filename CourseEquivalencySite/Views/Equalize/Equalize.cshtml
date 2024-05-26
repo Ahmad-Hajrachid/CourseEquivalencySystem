@@ -1,6 +1,9 @@
-﻿@{
+﻿@model IEnumerable<Institution>
+@{
     ViewData["Title"] = "Equalize";
+   
 }
+
 
 <!DOCTYPE html>
 <html>
@@ -14,6 +17,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -33,18 +37,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="previousInstitution">المنشأة السابقة</label>
-                                <select class="form-control" id="previousInstitution">
+                                <select class="form-control" id="institutionId" onchange="fetchMajors(this.value)">
                                     <option value="">إختر المنشأة</option>
-                                    <option value="institution1">جامعة البتراء</option>
-                                    <option value="institution2">جامعة الزيتونة</option>
+                                    @foreach (var institution in Model)
+                                    {
+                                        <option value="@institution.institutionID">@institution.institutionNameAR</option>
+                                    }
                                 </select>
+
                             </div>
                             <div class="form-group">
                                 <label for="major">التخصص</label>
-                                <select class="form-control" id="major">
+                                <select class="form-control" id="major" onchange="fetchCourses()">
                                     <option value="">إختر التخصص</option>
-                                    <option value="major1">علم الحاسوب</option>
-                                    <option value="major2">الذكاء الاصطناعي</option>
                                 </select>
                             </div>
                         </div>
@@ -87,22 +92,17 @@
                     <h3>اختيار المواد المجتازة</h3>
                 </div>
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table" id="course">
                         <thead>
                             <tr>
+                                <th>اسم المادة</th>
                                 <th>وصف المادة</th>
                                 <th>وزن المادة</th>
-                                <th>اسم المادة</th>
                                 <th>مجتازة</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><input type="checkbox"></td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -120,3 +120,51 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<script>
+    function fetchMajors(id) {
+        $.ajax({
+            url: '/Equalize/getMajors/' + id,
+            type: 'GET',
+            success: function (data) {
+                $('#major').empty(); 
+                $.each(data, function (index, item) {
+                    $('#major').append('<option value="' + 0 + '">' + 'اختر التخصص' + '</option>');
+
+                    $('#major').append('<option value="' + item.majorID + '">' + item.majorNameAR + '</option>');
+                });
+                institutionId = id;
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+</script>
+<script>
+    function fetchCourses() {
+        var majorId = $('#major').val();
+        var institutionId = $('#institutionId').val();
+        $.ajax({
+            
+            url: '/Equalize/getCourses/',
+            type: 'GET',
+            data: { institutionId: institutionId, majorId: majorId },
+            success: function (result) {
+                $('#course tbody').empty();
+                $.each(result, function (index, item) {
+                    var row = '<tr>' +
+                        '<td>' + item.courseNameAR + '</td>' +
+                        '<td>' + item.courseDescriptionAR + '</td>' +
+                        '<td>' + item.courseWeightAR + '</td>' +
+                        '<td> <input type="checkbox" name="pass"> </td>' +
+                        '</tr>';
+                    $('#course tbody').append(row);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+</script>

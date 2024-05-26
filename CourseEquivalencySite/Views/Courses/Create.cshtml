@@ -9,46 +9,75 @@
         <h1>اضافة مادة</h1>
     </div>
 
-    <hr />
+    <hr/>
+    <div class="form-group">
+        <label for="previousInstitution">المنشأة السابقة</label>
+        <select class="form-control" id="institutionId" onchange="fetchMajors(this.value)">
+           
+            
+        </select>
+
+        <div class="form-group">
+            <label for="major">التخصص</label>
+            <select class="form-control" id="major" onchange="fetchCourses()">
+                <option value="">إختر التخصص</option>
+            </select>
+        </div>
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <form asp-action="Create">
+            <form method="post" asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="courseID" class="control-label"></label>
-                    <input asp-for="courseID" class="form-control" />
-                    <span asp-validation-for="courseID" class="text-danger"></span>
+                    <label asp-for="courseNameAR" class="control-label"></label>
+                    <input type="text" name="courseNameAR" id="courseNameAR" class="form-control" />
+                    <span asp-validation-for="courseNameAR" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="courseName" class="control-label"></label>
-                    <input asp-for="courseName" class="form-control" />
-                    <span asp-validation-for="courseName" class="text-danger"></span>
+                    <label asp-for="courseNameEN" class="control-label"></label>
+                    <input type="text" name="courseNameEN" id="courseNameEN" class="form-control" />
+                    <span asp-validation-for="courseNameEN" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="courseDescription" class="control-label"></label>
-                    <input asp-for="courseDescription" class="form-control" />
-                    <span asp-validation-for="courseDescription" class="text-danger"></span>
+                    <label asp-for="courseDescriptionAR" class="control-label"></label>
+                    <input type="text" name="courseDescriptionAR" id="courseDescriptionAR" class="form-control" />
+                    <span asp-validation-for="courseDescriptionAR" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="courseWeight" class="control-label"></label>
-                    <input asp-for="courseWeight" class="form-control" />
-                    <span asp-validation-for="courseWeight" class="text-danger"></span>
+                    <label asp-for="courseDescriptionEN" class="control-label"></label>
+                    <input type="text" name="courseDescriptionEN" id="courseDescriptionEN" class="form-control" />
+                    <span asp-validation-for="courseDescriptionEN" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="courseWeightAR" class="control-label"></label>
+                    <input type="text" name="courseWeightAR" id="courseWeightAR" class="form-control" />
+                    <span asp-validation-for="courseWeightAR" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="courseWeightEN" class="control-label"></label>
+                    <input type="text" name="courseWeightEN" id="courseWeightEN" class="form-control" />
+                    <span asp-validation-for="courseWeightEN" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="institutionId" class="control-label"></label>
-                    <input asp-for="institutionId" class="form-control" />
+                    <input type="text" name="institutionId" id="institutionId" class="form-control" />
                     <span asp-validation-for="institutionId" class="text-danger"></span>
                 </div>
-                <div class="form-group text-center ">
-                    <input type="submit" value="اضافة" class="btn btn-lg btn-danger rounded-pill mt-4 " />
+                <div class="form-group">
+                    <label asp-for="majorId" class="control-label"></label>
+                    <input type="text" name="majorId" id="majorId" class="form-control" />
+                    <span asp-validation-for="majorId" class="text-danger"></span>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" onclick="addData()" class="btn btn-lg btn-danger rounded-pill mt-4">اضافة</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="text-center ">
+    <div class="text-center">
         <a asp-action="Index" class="btn btn-lg btn-danger rounded-pill mt-3">الرجوع للقائمة</a>
     </div>
+</div>
 </div>
 
 @section Scripts {
@@ -56,3 +85,59 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+  <script>
+
+        function fetchMajors(id) {
+            $.ajax({
+                url: '/Equalize/getMajors/' + id,
+                type: 'GET',
+                success: function (data) {
+                    $('#major').empty();
+                    $.each(data, function (index, item) {
+                        $('#major').append('<option value="' + 0 + '">' + 'اختر التخصص' + '</option>');
+
+                        $('#major').append('<option value="' + item.majorID + '">' + item.majorNameAR + '</option>');
+                    });
+                    institutionId = id;
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        } 
+    </script>
+
+
+ <script>
+    function addData() {
+        formData.append('courseNameAr', $('#courseNameAR').val());
+        formData.append('courseNameEN', $('#courseNameEN').val());
+        formData.append('courseDescreptionAR', $('#courseDescriptionAR').val());
+        formData.append('courseDescreptionEN', $('#courseDescriptionEN').val());
+        formData.append('courseWeightAR', parseInt($('#courseWeightAR').val());
+        formData.append('courseWeightEN', parseInt($('#courseWeightEN').val());
+        formData.append('institutionId', parseInt($('#institutionId').val());
+        formData.append('majorId', parseInt($('#majorId').val());
+
+        fetch('@Url.Action("addCourse", "Courses")', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); 
+            })
+            .then(data => {
+                console.log('Data added successfully:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+</script> 
+
+    

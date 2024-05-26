@@ -56,25 +56,13 @@ namespace CourseEquivalencySite.Migrations
                 {
                     institutionID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    institutionName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    institutionNameAR = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    institutionNameEN = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_institutions", x => x.institutionID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "majors",
-                columns: table => new
-                {
-                    majorID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    majorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    institutionId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_majors", x => x.majorID);
                 });
 
             migrationBuilder.CreateTable(
@@ -198,26 +186,56 @@ namespace CourseEquivalencySite.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Course",
+                name: "majors",
                 columns: table => new
                 {
-                    courseID = table.Column<int>(type: "int", nullable: false)
+                    majorID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    courseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    courseDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    courseWeight = table.Column<int>(type: "int", nullable: false),
+                    majorNameAR = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    majorNameEN = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     institutionId = table.Column<int>(type: "int", nullable: false),
-                    majorId = table.Column<int>(type: "int", nullable: false)
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Course", x => x.courseID);
+                    table.PrimaryKey("PK_majors", x => x.majorID);
                     table.ForeignKey(
-                        name: "FK_Course_institutions_institutionId",
+                        name: "FK_majors_institutions_institutionId",
                         column: x => x.institutionId,
                         principalTable: "institutions",
                         principalColumn: "institutionID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "course",
+                columns: table => new
+                {
+                    courseID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    courseNameAR = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    courseNameEN = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    courseDescriptionAR = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    courseDescriptionEN = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    courseWeightAR = table.Column<int>(type: "int", nullable: false),
+                    courseWeightEN = table.Column<int>(type: "int", nullable: false),
+                    institutionId = table.Column<int>(type: "int", nullable: true),
+                    majorId = table.Column<int>(type: "int", nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_course", x => x.courseID);
+                    table.ForeignKey(
+                        name: "FK_course_institutions_institutionId",
+                        column: x => x.institutionId,
+                        principalTable: "institutions",
+                        principalColumn: "institutionID");
+                    table.ForeignKey(
+                        name: "FK_course_majors_majorId",
+                        column: x => x.majorId,
+                        principalTable: "majors",
+                        principalColumn: "majorID");
                 });
 
             migrationBuilder.CreateIndex(
@@ -260,8 +278,18 @@ namespace CourseEquivalencySite.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Course_institutionId",
-                table: "Course",
+                name: "IX_course_institutionId",
+                table: "course",
+                column: "institutionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_course_majorId",
+                table: "course",
+                column: "majorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_majors_institutionId",
+                table: "majors",
                 column: "institutionId");
         }
 
@@ -284,10 +312,7 @@ namespace CourseEquivalencySite.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Course");
-
-            migrationBuilder.DropTable(
-                name: "majors");
+                name: "course");
 
             migrationBuilder.DropTable(
                 name: "users");
@@ -297,6 +322,9 @@ namespace CourseEquivalencySite.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "majors");
 
             migrationBuilder.DropTable(
                 name: "institutions");

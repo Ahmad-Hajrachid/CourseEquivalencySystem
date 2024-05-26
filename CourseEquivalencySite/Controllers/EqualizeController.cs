@@ -19,5 +19,19 @@ namespace CourseEquivalencySite.Controllers
           
             return View(data);
         }
+        [HttpGet]
+        public IActionResult getMajors(int id)
+        {
+            var data = _services.getMajors(id);
+
+            return Ok(data);
+        }
+        [HttpGet]
+        public IActionResult getCourses(int institutionId, int majorId)
+        {
+            var data = _services.getCourses(institutionId,majorId);
+
+            return Ok(data);
+        }
     }
 }

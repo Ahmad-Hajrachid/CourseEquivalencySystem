@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CourseEquivalencySite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240509192632_initMig")]
+    [Migration("20240511215949_initMig")]
     partial class initMig
     {
         /// <inheritdoc />
@@ -33,28 +33,44 @@ namespace CourseEquivalencySite.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("courseID"));
 
-                    b.Property<string>("courseDescription")
+                    b.Property<string>("courseDescriptionAR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("courseName")
+                    b.Property<string>("courseDescriptionEN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("courseWeight")
+                    b.Property<string>("courseNameAR")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("courseNameEN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("courseWeightAR")
                         .HasColumnType("int");
 
-                    b.Property<int>("institutionId")
+                    b.Property<int>("courseWeightEN")
                         .HasColumnType("int");
 
-                    b.Property<int>("majorId")
+                    b.Property<int?>("institutionId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("majorId")
                         .HasColumnType("int");
 
                     b.HasKey("courseID");
 
                     b.HasIndex("institutionId");
 
-                    b.ToTable("Course");
+                    b.HasIndex("majorId");
+
+                    b.ToTable("course");
                 });
 
             modelBuilder.Entity("CourseEquivalencySite.Models.Institution", b =>
@@ -65,9 +81,16 @@ namespace CourseEquivalencySite.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("institutionID"));
 
-                    b.Property<string>("institutionName")
+                    b.Property<string>("institutionNameAR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("institutionNameEN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
 
                     b.HasKey("institutionID");
 
@@ -82,14 +105,24 @@ namespace CourseEquivalencySite.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("majorID"));
 
-                    b.Property<int>("institutionId")
+                    b.Property<int?>("institutionId")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<string>("majorName")
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("majorNameAR")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("majorNameEN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("majorID");
+
+                    b.HasIndex("institutionId");
 
                     b.ToTable("majors");
                 });
@@ -318,6 +351,21 @@ namespace CourseEquivalencySite.Migrations
                 });
 
             modelBuilder.Entity("CourseEquivalencySite.Models.Course", b =>
+                {
+                    b.HasOne("CourseEquivalencySite.Models.Institution", "institution")
+                        .WithMany()
+                        .HasForeignKey("institutionId");
+
+                    b.HasOne("CourseEquivalencySite.Models.Major", "major")
+                        .WithMany()
+                        .HasForeignKey("majorId");
+
+                    b.Navigation("institution");
+
+                    b.Navigation("major");
+                });
+
+            modelBuilder.Entity("CourseEquivalencySite.Models.Major", b =>
                 {
                     b.HasOne("CourseEquivalencySite.Models.Institution", "institution")
                         .WithMany()

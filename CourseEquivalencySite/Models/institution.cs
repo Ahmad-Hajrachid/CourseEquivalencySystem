@@ -3,6 +3,8 @@
     public class Institution
     {
         public int institutionID { get; set; }
-        public String institutionName { get; set; }
+        public String? institutionNameAR { get; set; }
+        public String? institutionNameEN { get; set; }
+        public bool isDeleted { get; set; }    
     }
 }

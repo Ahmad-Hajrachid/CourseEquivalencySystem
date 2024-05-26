@@ -10,9 +10,9 @@ namespace CourseEquivalencySite.Data
             : base(options)
         {
         }
-        public DbSet<CourseEquivalencySite.Models.Course> Course { get; set; }
-        public DbSet<CourseEquivalencySite.Models.Institution>  institutions { get; set; }
-        public DbSet<CourseEquivalencySite.Models.Major>  majors { get; set; }
-        public DbSet<CourseEquivalencySite.Models.Users>   users{ get; set; }
+        public DbSet<Course> course { get; set; }
+        public DbSet<Institution> institutions { get; set; }
+        public DbSet<Major> majors { get; set; }
+        public DbSet<Users> users{ get; set; }
     }
 }

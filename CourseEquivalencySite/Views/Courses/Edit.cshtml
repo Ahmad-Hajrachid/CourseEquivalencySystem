@@ -17,35 +17,49 @@
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="courseID" />
-
                 <div class="form-group">
-                    <label asp-for="courseID" class="control-label"></label>
-                    <input asp-for="courseID" class="form-control" />
-                    <span asp-validation-for="courseID" class="text-danger"></span>
+                    <label asp-for="courseNameAR" class="control-label"></label>
+                    <input asp-for="courseNameAR" id="courseNameAR" class="form-control" />
+                    <span asp-validation-for="courseNameAR" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="courseName" class="control-label"></label>
-                    <input asp-for="courseName" class="form-control" />
-                    <span asp-validation-for="courseName" class="text-danger"></span>
+                    <label asp-for="courseNameEN" class="control-label"></label>
+                    <input asp-for="courseNameEN" id="courseNameEN" class="form-control" />
+                    <span asp-validation-for="courseNameEN" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="courseDescription" class="control-label"></label>
-                    <input asp-for="courseDescription" class="form-control" />
-                    <span asp-validation-for="courseDescription" class="text-danger"></span>
+                    <label asp-for="courseDescriptionAR" class="control-label"></label>
+                    <input asp-for="courseDescriptionAR" id="courseDescriptionAR" class="form-control" />
+                    <span asp-validation-for="courseDescriptionAR" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="courseWeight" class="control-label"></label>
-                    <input asp-for="courseWeight" class="form-control" />
-                    <span asp-validation-for="courseWeight" class="text-danger"></span>
+                    <label asp-for="courseDescriptionEN" class="control-label"></label>
+                    <input asp-for="courseDescriptionEN" id="courseDescriptionEN" class="form-control" />
+                    <span asp-validation-for="courseDescriptionEN" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="courseWeightAR" class="control-label"></label>
+                    <input asp-for="courseWeightAR" id="courseWeightAR" class="form-control" />
+                    <span asp-validation-for="courseWeightAR" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="courseWeightEN" class="control-label"></label>
+                    <input asp-for="courseWeightEN" id="courseWeightEN" class="form-control" />
+                    <span asp-validation-for="courseWeightEN" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="institutionId" class="control-label"></label>
-                    <input asp-for="institutionId" class="form-control" />
+                    <input asp-for="institutionId" id="institutionId" class="form-control" />
                     <span asp-validation-for="institutionId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="majorId" class="control-label"></label>
+                    <input asp-for="majorId" id="majorId" class="form-control" />
+                    <span asp-validation-for="majorId" class="text-danger"></span>
                 </div>
 
                 <div class="form-group text-center mt-4 ">
-                    <input type="submit" value="حفظ" class="btn btn-lg btn-danger rounded-pill" />
+                    <input type="submit" onclick="EditCourse()" value="حفظ" class="btn btn-lg btn-danger rounded-pill" />
                     <a asp-action="Index" class="btn btn-lg btn-danger rounded-pill">الرجوع للقائمة</a>
                 </div>
             </form>
@@ -58,3 +72,35 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+<script>
+    function EditCourse() {
+        var formData = new FormData();
+        formData.append('id', $('#courseID').val());
+        formData.append('courseNameAR', $('#courseNameAR').val());
+        formData.append('courseNameEn', $('#courseNameEN').val());
+        formData.append('courseDescreptionAr', $('#courseDescriptionAR').val());
+        formData.append('courseDescreptionEn', $('#courseDescriptionEN').val());
+        formData.append('courseWeightAr', parseInt($('#courseWeightAR').val()));
+        formData.append('courseWeightEn', parseInt($('#courseWeightEN').val()));
+        formData.append('institutionId', parseInt($('#institutionId').val()));
+        formData.append('majorId', parseInt($('#majorId').val()));
+
+        fetch('@Url.Action("Edit", "Courses")', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data updated successfully:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+</script>
