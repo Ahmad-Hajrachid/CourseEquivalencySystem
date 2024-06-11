@@ -6,96 +6,250 @@
     <div class="text-center">
         
         <form asp-controller="Equalize" asp-action="Equalize" method="get">
-            <button class="btn btn-lg custom-darker-danger rounded-pill mt-4" type="submit">ابدأ المعادلة</button>
+            <button class="btn btn-lg custom-darker-danger rounded-pill mt-4" type="submit">إبدأ المعادلة</button>
         </form>
     </div>
 
     <div class="row mt-4">
-        <div class="col-md-3">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header custom-darker-danger">
                     <h3>أردني مجسر</h3>
                 </div>
                 <div class="card-body">
-                    <p><strong>الحالة الاولى: شامل (معدل 68%, 70% من داخل الاردن):</strong></p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">محتوى القائمة</li>
-                        <!-- Adding the rest later -->
-                    </ul>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1><strong>الحالة الاولى:</strong></h1>
+                            <h3>شامل (معدل 68%, 70% من داخل الاردن)</h3>
+                            <li class="mt-3"><strong>مناظر:</strong></li>
+                            <table class="styled-table ">
+                                <tbody>
+                                    <tr>
+                                        <td>أسس القبول</td>
+                                        <td>الدبلوم</td>
+                                    </tr>
+                                    <tr>
+                                        <td>الحد الأقصى لعدد الساعات المعادلة</td>
+                                        <td>(50%) من الخطة الدراسية</td>
+                                    </tr>
+                                    <tr>
+                                        <td>علامة المادة للمعادلة</td>
+                                        <td>بغض النظر عن العلامة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>قرار الوزارة</td>
+                                        <td>قرار رقم (271) بتاريخ 2017/07/20 (أسس التجسير)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <li><strong>غير مناظر</strong></li>
+                            <table class="styled-table">
+                                <tbody>
+                                    <tr>
+                                        <td>أسس القبول</td>
+                                        <td>الثانوية العامة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>الحد الأقصى لعدد الساعات المعادلة</td>
+                                        <td>(30) ساعة من متطلبات الجامعة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>علامة المادة المعادلة</td>
+                                        <td>بغض النظر عن العلامة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>قرار الوزارة</td>
+                                        <td>جلسة رقم (21) بتاريخ 2016/10/13</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h1><strong>الحالة الثانية: </strong></h1>
+                            <h3> شامل معدل أقل من 68%, 70% من داخل الاردن</h3>
+                            <li class="mt-3"><strong>مناظر:</strong></li>
+                            <table class="styled-table ">
+                                <tbody>
+                                    <tr>
+                                        <td>أسس القبول</td>
+                                        <td>الثانوية العامة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>الحد الأقصى لعدد الساعات المعادلة</td>
+                                        <td>(30) ساعة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>علامة المادة للمعادلة</td>
+                                        <td>لا تعادل أي مادة علامتها أقل من (68) أو (70) لتخصص الصيدلة و الهندسة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>قرار الوزارة</td>
+                                        <td>جلسة رقم (20) بتاريخ 2016/09/25</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <li><strong>غير مناظر</strong></li>
+                            <table class="styled-table">
+                                <tbody>
+                                    <tr>
+                                        <td>أسس القبول</td>
+                                        <td>الثانوية العامة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>الحد الأقصى لعدد الساعات المعادلة</td>
+                                        <td>(30) ساعة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>علامة المادة المعادلة</td>
+                                        <td>لا تعادل أي مادة علامتها أقل من (68) أو (70) لتخصص الصيدلة و الهندسة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>قرار الوزارة</td>
+                                        <td>جلسة رقم (20) بتاريخ 2016/09/25</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <h1><strong>الحالة الثالثة: </strong></h1>
+                        <h3>دبلوم من خارج الاردن</h3>
+                        <li class="mt-3"><strong>مناظر:</strong></li>
+                        <table class="styled-table ">
+                            <tbody>
+                                <tr>
+                                    <td>أسس القبول</td>
+                                    <td>الدبلوم</td>
+                                </tr>
+                                <tr>
+                                    <td>الحد الأقصى لعدد الساعات المعادلة</td>
+                                    <td>(50%) من الخطة الدراسية</td>
+                                </tr>
+                                <tr>
+                                    <td>علامة المادة للمعادلة</td>
+                                    <td>بغض النظر عن العلامة</td>
+                                </tr>
+                                <tr>
+                                    <td>قرار الوزارة</td>
+                                    <td>قرار رقم (271) بتاريخ 2017/07/20 (أسس التجسير)</td>
+                                </tr>
+                                <tr>
+                                    <td>ملاحظات (إن وجدت)</td>
+                                    <td>إحضار قرار معادلة للدبلوم من وزارة التعليم العالي و البحث العلمي الأردنية</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
             </div>
         </div>
-
-        
-
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-header custom-darker-danger">
-                    <h3>أردني منتقل</h3>
-                </div>
-                <div class="card-body">
-                    <p><strong>Case 1</strong></p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">محتوى القائمة</li>
-                        <!-- Adding the rest later -->
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header custom-darker-danger">
                     <h3>أجنبي مجسر</h3>
                 </div>
                 <div class="card-body">
-                    <p><strong>case 1</strong></p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">محتوى القائمة</li>
-                        <!-- Adding the rest later -->
-                    </ul>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1><strong>الحالة الاولى:</strong></h1>
+                            <h3>شامل (معدل 68%, 70% من داخل الاردن)</h3>
+                            <li class="mt-3"><strong>مناظر أو غير مناظر:</strong></li>
+                            <table class="styled-table ">
+                                <tbody>
+                                    <tr>
+                                        <td>أسس القبول</td>
+                                        <td>الدبلوم</td>
+                                    </tr>
+                                    <tr>
+                                        <td>الحد الأقصى لعدد الساعات المعادلة</td>
+                                        <td>(50%) من الخطة الدراسية</td>
+                                    </tr>
+                                    <tr>
+                                        <td>علامة المادة للمعادلة</td>
+                                        <td>بغض النظر عن العلامة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>قرار الوزارة</td>
+                                        <td>قرار رقم (271) بتاريخ 2017/07/20 (أسس التجسير)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h1><strong>الحالة الثانية: </strong></h1>
+                            <h3> شامل معدل أقل من 68%, 70% من داخل الاردن</h3>
+                            <li class="mt-3"><strong>مناظر أو غير مناظر:</strong></li>
+                            <table class="styled-table ">
+                                <tbody>
+                                    <tr>
+                                        <td>أسس القبول</td>
+                                        <td>الدبلوم</td>
+                                    </tr>
+                                    <tr>
+                                        <td>الحد الأقصى لعدد الساعات المعادلة</td>
+                                        <td>(55) ساعة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>علامة المادة للمعادلة</td>
+                                        <td>لا تعادل أي مادة علامتها أقل من (68) أو (70) </td>
+                                    </tr>
+                                    <tr>
+                                        <td>قرار الوزارة</td>
+                                        <td>جلسة رقم (21) بتاريخ 2016/10/13</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header custom-darker-danger">
+                    <h3>أردني أو أجنبي منتقل</h3>
+                </div>
+                <div class="card-body">
+                    <li style="font-size: x-large"><strong>يمكن للطالب الذي يرغب في الإنتقال من جامعة اخرى إلى جامعة الشرق الاوسط أن يتقدم بطلب إلى دائرة القبول و التسجيل, و يصدر عن قسم القبول وفقاً للشروط الآتية:</strong></li>
+                    <ol class="arabic-numerals mt-3">
+                        <li><strong>أن يكون معدله في الثانوية العامة أو ما يعادلها مقبولاً في الكلية المنتقل إليها سنة قبوله في تلك الجامعة.</strong></li>
+                        <li><strong>تحقق شروط القبول في التخصص المرغوب فيه.</strong></li>
+                        <li><strong>أن لا يكون الطالب مفصولاً فصلاً تأديبياً من الجامعة المنتقل منها.</strong></li>
+                    </ol>
+                    <li style="font-size: xx-large"><strong>شروط معادلة المساقات:</strong></li>
+                    <ol class="arabic-numerals mt-3">
+                        <li><strong>أن تكون الجامعة و التخصص المنتقل منها الطالب معترف بهما من وزارة التعليم العالي و البحث العلمي الأردنية أو في بلده و تتبع نظام المواظبة (لا يقبل الانتساب)</strong></li>
+                        <li><strong>لا يُعادل أكثر من 50% من ساعات الخطة الدراسية.</strong></li>
+                        <li><strong>أن يكون المحتوى العلمي مكافئاً للمساق المطلوب معادلته في الجامعة.</strong></li>
+                        <li><strong>يتم معادلة المادة التي درسها الطالب و نجح فيها و تدخل ضمن الخطة الدراسية.</strong></li>
+                        <li><strong>التقديرات أو المعدلات التي حصل عليها الطالب في المساقات المعادلة لا تدخل في إحتساب المعدل التراكمي في الجامعة.</strong></li>
+                        <li><strong>يٌحسم فصل دراسي واحد من الحد الأعلى لسنوات التخرج مقابل كل 15 ساعة معتمدة تم معادلتها.</strong></li>
+                        <li><strong>الطلبة المنقطعون عن الدراسة من الجامعات الأردنية و معدلاتهم في الثانوية العامة أقل من 60%, و قٌبلوا بناءً على أٌسس القبول النافذة آنذاك, يمكن قبولهم في الجامعة بناءً على أٌسس القبول في السنة التي قٌبلوا فيها شريطة عدم معادلة المواد التي درسوها و التي تقل علامتها عن 60% حسب قرار وزارة التعليم العالي و البحث العلمي الأردنية.</strong></li>
+                    </ol>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-header custom-darker-danger">
-                    <h3>أجنبي منتقل</h3>
-                </div>
-                <div class="card-body">
-                    <p><strong>Case 1</strong></p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">محتوى القائمة</li>
-                        <!-- Adding the rest later -->
-                    </ul>
-                </div>
-            </div>
-        </div>
     </div>
 
-    <div class="row mt-4">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header custom-darker-danger">
-                    <h3>ألاسئلة الاكثر شيوعاً</h3>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">question1</li>
-                        <!-- Adding the rest later -->
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
+    <div class="row mt-4" id="about">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header custom-darker-danger">
                     <h3>حول</h3>
                 </div>
                 <div class="card-body">
-                    <p>محتوى الحول</p>
+                    <h3> يقوم نظام المعادلات بالوظائف الاتية:</h3>
+                    <ol class="arabic-numerals mt-3">
+                        <li><strong>المساعدة في ايجاد مساقات جامعة الشرق الأوسط المكافئة للمساقات التي درسها الطالب في الجامعة التي انتقل منها.</strong></li>
+                        <li><strong>ايجاد نسبة التشابه بين مساق من جامعة الشرق الأوسط ومساق من جامعة اخرى.</strong></li>
+                        <li><strong>طباعة كشف تفصيلي للطالب يوضح جميع المساقات التي تم معادلتها وعدد الساعات المعادلة.</strong></li>
+                    </ol>
                 </div>
             </div>
         </div>

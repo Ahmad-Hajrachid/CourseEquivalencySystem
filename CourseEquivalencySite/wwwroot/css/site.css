@@ -22,9 +22,6 @@ body {
   direction: rtl;
 }
 #about {
-    
-    border-top: 2px solid red;
-    
     margin-bottom: 20px;
      
 }
@@ -37,9 +34,6 @@ body {
     padding-top: 20px;
 }
 
-#faqs h2, #about h2 {
-        color: #333; 
-    }
 .rounded-pill {
     border-radius: 50px;
 }
@@ -88,6 +82,8 @@ body {
     margin-right: 30%;
     margin-top: 5%;
     margin-bottom: 5%;
+    background-color: silver;
+    padding-bottom: 10px;
     
 }
 .main-body {
@@ -97,3 +93,50 @@ body {
     padding-bottom: 20px;
     
 }
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 18px;
+    text-align: left;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+    .styled-table thead tr {
+        border-bottom: 2px solid #a71d2a;
+        text-align:right;
+    }
+
+    .styled-table th,
+    .styled-table td {
+        text-align: right;
+        padding: 12px 15px;
+    }
+
+    .styled-table tbody tr {
+        border-bottom: 1px solid #a71d2a;
+    }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #a71d2a;
+        }
+
+.arabic-numerals {
+    counter-reset: list-counter; 
+}
+
+    .arabic-numerals li {
+        list-style: none; 
+        counter-increment: list-counter;
+    }
+
+        .arabic-numerals li::before {
+            content: counter(list-counter, arabic-indic) ". "; 
+            font-family: 'Arial', sans-serif; 
+            font-weight: bold;
+            font-size: large
+        }
