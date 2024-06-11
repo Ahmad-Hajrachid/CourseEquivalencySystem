@@ -47,4 +47,53 @@ body {
     border: 2px solid red;
     padding: 15px;
 }
+.custom-darker-danger {
+    background-color: #a71d2a !important; 
+    color: white !important; 
+}
 
+.background-image {
+    background-image: url('/images/meu.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+.content-container {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.footer {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}
+.login-form-body {
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 20%;
+    margin-bottom: 20%;
+}
+.Course-form-body {
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    
+}
+.main-body {
+    background-color: #fff;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    padding-bottom: 20px;
+    
+}

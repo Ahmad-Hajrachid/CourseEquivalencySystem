@@ -4,9 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="container">
-    <div class="text-center">
-        <h1 class="display-4"><strong>معلومات المواد</strong></h1>
+
+<div class="background-image"></div>
+
+<div class="container content-container">
+    <div class="text-center custom-darker-danger">
+        <h1 class="display-1"><strong>معلومات المواد</strong></h1>
     </div>
     <div class="form-group">
         <label for="previousInstitution">المنشأة السابقة</label>
@@ -25,12 +28,12 @@
             </select>
         </div>
 
-        <p>
-            <a asp-action="Create" class="btn btn-lg btn-danger rounded-pill mt-4">اضافة مادة</a>
+        <p class="text-center">
+            <a asp-action="Create" class="btn btn-lg custom-darker-danger rounded-pill mt-4 ">اضافة مادة</a>
         </p>
         <div class="card-body">
             <table class="table" id="course">
-                <thead>
+                <thead class="custom-darker-danger">
                     <tr>
                         <th>اسم المادة</th>
                         <th>وصف المادة</th>
@@ -54,8 +57,8 @@
             type: 'GET',
             success: function (data) {
                 $('#major').empty();
+                $('#major').append('<option value="">' + 'اختر التخصص' + '</option>');
                 $.each(data, function (index, item) {
-                    $('#major').append('<option value="">' + 'اختر التخصص' + '</option>');
                     $('#major').append('<option value="' + item.majorID + '">' + item.majorNameAR + '</option>');
                 });
             },
@@ -86,7 +89,7 @@
                         '<td>' +
                         '<a href="/Courses/Edit/' + item.courseID + '" class="btn btn-primary">تعديل</a>' +
                         '<a href="/Courses/details/' + item.courseID + '" class="btn btn-secondary">التفاصيل</a>' +
-                        '<a href="#" onclick="confirmDelete(' + item.courseID + ')" class="btn btn-danger rounded-pill">حذف</a>' +
+                        '<a href="#" onclick="confirmDelete(' + item.courseID + ')" class="btn custom-darker-danger rounded-pill">حذف</a>' +
                         '</td>' +
                         '</tr>';
                     $('#course tbody').append(row);
@@ -106,7 +109,7 @@
                 data: { id: courseID },
                 success: function (response) {
                     if (response.success) {
-                        fetchCourses(); 
+                        fetchCourses();
                     } else {
                         alert('Failed to delete the course.');
                     }
