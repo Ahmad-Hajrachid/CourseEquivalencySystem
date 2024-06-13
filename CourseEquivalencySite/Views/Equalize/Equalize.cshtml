@@ -10,6 +10,9 @@
 <head>
     <title>Equalize Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <style>
         .card-header {
             background-color: #dc3545; 
@@ -68,8 +71,8 @@
                                 <label for="nationality">الجنسية</label>
                                 <select class="form-control" id="nationality">
                                     <option value="">إختر الجنسية</option>
-                                    <option value="jordanian">اردني</option>
-                                    <option value="foreigner">اجنبي</option>
+                                    <option value="jordanian" selected>اردني</option>
+                                    <option value="foreigner" disabled>اجنبي</option>
                                 </select>
                             </div>
                         </div>
@@ -78,8 +81,8 @@
                                 <label for="Case">الحالة</label>
                                 <select class="form-control" id="Case">
                                     <option value="Case">إختر الحالة</option>
-                                    <option value="ComingFromUniversity">مجسر</option>
-                                    <option value="ComingFromCollege">منتقل</option>
+                                    <option value="ComingFromUniversity" disabled>مجسر</option>
+                                    <option value="ComingFromCollege" selected>منتقل</option>
                                 </select>
                             </div>
                         </div>
@@ -90,6 +93,9 @@
             <div class="card mt-4">
                 <div class="card-header">
                     <h3>اختيار المواد المجتازة</h3>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="button" class="btn btn-primary btn-danger" onclick="equalize()">Equalize</button>
                 </div>
                 <div class="card-body">
                     <table class="table" id="course">
@@ -108,20 +114,19 @@
                 </div>
             </div>
 
-            <div class="text-center mt-4">
-                <button type="button" class="btn btn-primary btn-danger">Equalize</button>
-                <button type="button" class="btn btn-secondary btn-danger">Print as PDF</button>
-            </div>
+            
         </main>
 
 
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
 
 <script>
+
     function fetchMajors(id) {
         $.ajax({
             url: '/Equalize/getMajors/' + id,
@@ -166,5 +171,30 @@
                 console.error(error);
             }
         });
+    }
+</script>
+<script>
+    function equalize() {
+        var institutionId = $('#institutionId').val();
+        var majorId = $('#major').val();
+        var studentName = encodeURIComponent($('#studentName').val());
+        var studentId = encodeURIComponent($('#studentId').val());
+        var nationality = $('#nationality').val();
+        var caseStatus = $('#Case').val();
+
+        var checkedCourses = [];
+        $('#course tbody input[name="pass"]:checked').each(function () {
+            checkedCourses.push(encodeURIComponent($(this).closest('tr').find('td:first').text()));
+        });
+
+        var url = '/Equalize/equalizedCourses?institutionId=' + institutionId +
+            '&majorId=' + majorId +
+            '&studentName=' + studentName +
+            '&studentId=' + studentId +
+            '&nationality=' + nationality +
+            '&caseStatus=' + caseStatus +
+            '&courses=' + checkedCourses.join(',');
+
+        window.location.href = url;
     }
 </script>

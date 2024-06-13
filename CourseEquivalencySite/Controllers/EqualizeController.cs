@@ -27,11 +27,21 @@ namespace CourseEquivalencySite.Controllers
             return Ok(data);
         }
         [HttpGet]
+        public IActionResult getInstitutions()
+        {
+            var data = _services.getInstitutions();
+
+            return Ok(data);
+        }
+        [HttpGet]
         public IActionResult getCourses(int institutionId, int majorId)
         {
             var data = _services.getCourses(institutionId,majorId);
 
             return Ok(data);
         }
+        public IActionResult equalizedCourses() {
+            return View();
+                }
     }
 }

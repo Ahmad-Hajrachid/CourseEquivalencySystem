@@ -4,89 +4,96 @@
     ViewData["Title"] = "Create";
 }
 
-<div class="container">
-    <div class="text-center">
-        <h1>اضافة مادة</h1>
-    </div>
-
-    <hr/>
-    <div class="form-group">
-        <label for="previousInstitution">المنشأة السابقة</label>
-        <select class="form-control" id="institutionId" onchange="fetchMajors(this.value)">
-           
-            
-        </select>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Create</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center">
+            <h1>اضافة مادة</h1>
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="previousInstitution">المنشأة السابقة</label>
+            <select class="form-control" id="institutionId" onchange="fetchMajors(this.value)">
+                <option value="0">اختر المنشأة</option>
+            </select>
+        </div>
         <div class="form-group">
             <label for="major">التخصص</label>
-            <select class="form-control" id="major" onchange="fetchCourses()">
+            <select class="form-control" id="major" onchange="updateMajorId(this.value)">
                 <option value="">إختر التخصص</option>
             </select>
         </div>
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <form method="post" asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="courseNameAR" class="control-label"></label>
-                    <input type="text" name="courseNameAR" id="courseNameAR" class="form-control" />
-                    <span asp-validation-for="courseNameAR" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="courseNameEN" class="control-label"></label>
-                    <input type="text" name="courseNameEN" id="courseNameEN" class="form-control" />
-                    <span asp-validation-for="courseNameEN" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="courseDescriptionAR" class="control-label"></label>
-                    <input type="text" name="courseDescriptionAR" id="courseDescriptionAR" class="form-control" />
-                    <span asp-validation-for="courseDescriptionAR" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="courseDescriptionEN" class="control-label"></label>
-                    <input type="text" name="courseDescriptionEN" id="courseDescriptionEN" class="form-control" />
-                    <span asp-validation-for="courseDescriptionEN" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="courseWeightAR" class="control-label"></label>
-                    <input type="text" name="courseWeightAR" id="courseWeightAR" class="form-control" />
-                    <span asp-validation-for="courseWeightAR" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="courseWeightEN" class="control-label"></label>
-                    <input type="text" name="courseWeightEN" id="courseWeightEN" class="form-control" />
-                    <span asp-validation-for="courseWeightEN" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="institutionId" class="control-label"></label>
-                    <input type="text" name="institutionId" id="institutionId" class="form-control" />
-                    <span asp-validation-for="institutionId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="majorId" class="control-label"></label>
-                    <input type="text" name="majorId" id="majorId" class="form-control" />
-                    <span asp-validation-for="majorId" class="text-danger"></span>
-                </div>
-                <div class="form-group text-center">
-                    <button type="submit" onclick="addData()" class="btn btn-lg btn-danger rounded-pill mt-4">اضافة</button>
-                </div>
-            </form>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <form id="courseForm">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="courseNameAR" class="control-label"></label>
+                        <input type="text" name="courseNameAR" id="courseNameAR" class="form-control" />
+                        <span asp-validation-for="courseNameAR" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="courseNameEN" class="control-label"></label>
+                        <input type="text" name="courseNameEN" id="courseNameEN" class="form-control" />
+                        <span asp-validation-for="courseNameEN" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="courseDescriptionAR" class="control-label"></label>
+                        <input type="text" name="courseDescriptionAR" id="courseDescriptionAR" class="form-control" />
+                        <span asp-validation-for="courseDescriptionAR" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="courseDescriptionEN" class="control-label"></label>
+                        <input type="text" name="courseDescriptionEN" id="courseDescriptionEN" class="form-control" />
+                        <span asp-validation-for="courseDescriptionEN" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="courseWeightAR" class="control-label"></label>
+                        <input type="text" name="courseWeightAR" id="courseWeightAR" class="form-control" />
+                        <span asp-validation-for="courseWeightAR" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="courseWeightEN" class="control-label"></label>
+                        <input type="text" name="courseWeightEN" id="courseWeightEN" class="form-control" />
+                        <span asp-validation-for="courseWeightEN" class="text-danger"></span>
+                    </div>
+                    <input type="hidden" name="institutionId" id="hiddenInstitutionId" />
+                    <input type="hidden" name="majorId" id="hiddenMajorId" />
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-lg btn-danger rounded-pill mt-4">اضافة</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="text-center">
+            <a asp-action="Index" class="btn btn-lg btn-danger rounded-pill mt-3">الرجوع للقائمة</a>
         </div>
     </div>
 
-    <div class="text-center">
-        <a asp-action="Index" class="btn btn-lg btn-danger rounded-pill mt-3">الرجوع للقائمة</a>
-    </div>
-</div>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
-
-  <script>
+    <script>
+        function getInstitution() {
+            $.ajax({
+                url: '/Equalize/getInstitutions/',
+                type: 'GET',
+                success: function (data) {
+                    $('#institutionId').empty();
+                    $('#institutionId').append('<option value="0">اختر المنشأة</option>');
+                    $.each(data, function (index, item) {
+                        $('#institutionId').append('<option value="' + item.institutionID + '">' + item.institutionNameAR + '</option>');
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
 
         function fetchMajors(id) {
             $.ajax({
@@ -94,50 +101,54 @@
                 type: 'GET',
                 success: function (data) {
                     $('#major').empty();
+                    $('#major').append('<option value="">اختر التخصص</option>');
                     $.each(data, function (index, item) {
-                        $('#major').append('<option value="' + 0 + '">' + 'اختر التخصص' + '</option>');
-
                         $('#major').append('<option value="' + item.majorID + '">' + item.majorNameAR + '</option>');
                     });
-                    institutionId = id;
+                    $('#hiddenInstitutionId').val(id);
                 },
                 error: function (xhr, status, error) {
                     console.error(error);
                 }
             });
-        } 
+        }
+
+        function updateMajorId(majorId) {
+            $('#hiddenMajorId').val(majorId);
+        }
+
+        function addData(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData();
+            formData.append('courseNameAR', $('#courseNameAR').val());
+            formData.append('courseNameEN', $('#courseNameEN').val());
+            formData.append('courseDescriptionAR', $('#courseDescriptionAR').val());
+            formData.append('courseDescriptionEN', $('#courseDescriptionEN').val());
+            formData.append('courseWeightAR', parseInt($('#courseWeightAR').val()));
+            formData.append('courseWeightEN', parseInt($('#courseWeightEN').val()));
+            formData.append('institutionId', $('#hiddenInstitutionId').val());
+            formData.append('majorId', $('#hiddenMajorId').val());
+
+            fetch('@Url.Action("Create")', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    window.location.href = '@Url.Action("Index")'; 
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        $(document).ready(function () {
+            getInstitution();
+            $('#courseForm').on('submit', addData);
+        });
     </script>
-
-
- <script>
-    function addData() {
-        formData.append('courseNameAr', $('#courseNameAR').val());
-        formData.append('courseNameEN', $('#courseNameEN').val());
-        formData.append('courseDescreptionAR', $('#courseDescriptionAR').val());
-        formData.append('courseDescreptionEN', $('#courseDescriptionEN').val());
-        formData.append('courseWeightAR', parseInt($('#courseWeightAR').val());
-        formData.append('courseWeightEN', parseInt($('#courseWeightEN').val());
-        formData.append('institutionId', parseInt($('#institutionId').val());
-        formData.append('majorId', parseInt($('#majorId').val());
-
-        fetch('@Url.Action("addCourse", "Courses")', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json(); 
-            })
-            .then(data => {
-                console.log('Data added successfully:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-
-</script> 
-
-    
+</body>
+</html>

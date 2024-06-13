@@ -39,7 +39,6 @@ namespace CourseEquivalencySite.Services
 
             return data;
         }
-        [HttpPost]
         public bool addCourse(string courseNameAR, string courseNameEN, string courseDescriptionAR, string courseDescriptionEN, int courseWeightAR, int courseWeightEN, int institutionId, int majorId)
         {
             if (string.IsNullOrEmpty(courseNameAR) || string.IsNullOrEmpty(courseNameEN) || string.IsNullOrEmpty(courseDescriptionAR) || string.IsNullOrEmpty(courseDescriptionEN))

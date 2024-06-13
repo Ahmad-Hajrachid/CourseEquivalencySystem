@@ -38,9 +38,9 @@ namespace CourseEquivalencySite.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(string courseNameAR, string courseNameEN, string courseDescreptionAR, string courseDescreptionEN, int courseWeightAR, int courseWeightEN, int institutionId, int majorId)
+        public IActionResult Create(string courseNameAR, string courseNameEN, string courseDescriptionAR, string courseDescriptionEN, int courseWeightAR, int courseWeightEN, int institutionId, int majorId)
         {
-            _services.addCourse(courseNameAR, courseNameEN, courseDescreptionAR, courseDescreptionEN,courseWeightAR,courseWeightEN,institutionId,majorId);
+            _services.addCourse(courseNameAR, courseNameEN, courseDescriptionAR, courseDescriptionEN,courseWeightAR,courseWeightEN,institutionId, majorId);
             return RedirectToAction(nameof(index));
         }
 

@@ -11,7 +11,18 @@
     </div>
 
     <hr />
-
+    <div class="form-group">
+        <label for="previousInstitution">المنشأة السابقة</label>
+        <select class="form-control" id="institutionId" onchange="fetchMajors(this.value)">
+            <option value="0">اختر المنشأة</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="major">التخصص</label>
+        <select class="form-control" id="major" onchange="updateMajorId(this.value)">
+            <option value="">إختر التخصص</option>
+        </select>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-4">
             <form asp-action="Edit">
@@ -47,20 +58,15 @@
                     <input asp-for="courseWeightEN" id="courseWeightEN" class="form-control" />
                     <span asp-validation-for="courseWeightEN" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="institutionId" class="control-label"></label>
-                    <input asp-for="institutionId" id="institutionId" class="form-control" />
-                    <span asp-validation-for="institutionId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="majorId" class="control-label"></label>
-                    <input asp-for="majorId" id="majorId" class="form-control" />
-                    <span asp-validation-for="majorId" class="text-danger"></span>
-                </div>
 
                 <div class="form-group text-center mt-4 ">
                     <input type="submit" onclick="EditCourse()" value="حفظ" class="btn btn-lg btn-danger rounded-pill" />
                     <a asp-action="Index" class="btn btn-lg btn-danger rounded-pill">الرجوع للقائمة</a>
+                </div>
+                <input type="hidden" name="institutionId" id="hiddenInstitutionId" value="@Model.institutionId" />
+                <input type="hidden" name="majorId" id="hiddenMajorId" value="@Model.majorId" />
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-lg btn-danger rounded-pill mt-4">اضافة</button>
                 </div>
             </form>
         </div>
@@ -73,6 +79,51 @@
     }
 }
 <script>
+    function getInstitution() {
+        $.ajax({
+            url: '/Equalize/getInstitutions/',
+            type: 'GET',
+            success: function (data) {
+                $('#institutionId').empty();
+                $('#institutionId').append('<option value="0">اختر المنشأة</option>');
+                $.each(data, function (index, item) {
+                    $('#institutionId').append('<option value="' + item.institutionID + '">' + item.institutionNameAR + '</option>');
+                });
+
+                var selectedInstitutionId = $('#hiddenInstitutionId').val();
+                if (selectedInstitutionId) {
+                    $('#institutionId').val(selectedInstitutionId).change();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    function fetchMajors(id) {
+        $.ajax({
+            url: '/Equalize/getMajors/' + id,
+            type: 'GET',
+            success: function (data) {
+                $('#major').empty();
+                $('#major').append('<option value="">اختر التخصص</option>');
+                $.each(data, function (index, item) {
+                    $('#major').append('<option value="' + item.majorID + '">' + item.majorNameAR + '</option>');
+                });
+
+                var selectedMajorId = $('#hiddenMajorId').val();
+                if (selectedMajorId) {
+                    $('#major').val(selectedMajorId);
+                }
+                $('#hiddenInstitutionId').val(id);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
     function EditCourse() {
         var formData = new FormData();
         formData.append('id', $('#courseID').val());
@@ -83,7 +134,7 @@
         formData.append('courseWeightAr', parseInt($('#courseWeightAR').val()));
         formData.append('courseWeightEn', parseInt($('#courseWeightEN').val()));
         formData.append('institutionId', parseInt($('#institutionId').val()));
-        formData.append('majorId', parseInt($('#majorId').val()));
+        formData.append('majorId', parseInt($('#major').val()));
 
         fetch('@Url.Action("Edit", "Courses")', {
             method: 'POST',
@@ -103,4 +154,11 @@
             });
     }
 
+    function updateMajorId(majorId) {
+        $('#hiddenMajorId').val(majorId);
+    }
+
+    $(document).ready(function () {
+        getInstitution();
+    });
 </script>
