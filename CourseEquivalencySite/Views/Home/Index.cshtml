@@ -1,8 +1,28 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
 <div class="background-image"></div>
+    
+
 <div class="content-container">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header custom-darker-danger">
+                    <h3>مرحباً بك  في نظام معادلة المواد للطلبة المنتقلين و المجسرين</h3>
+                </div>
+                <div class="card-body">
+                    <h3> يقوم النظام بالوظائف الاتية:</h3>
+                    <ol class="arabic-numerals mt-3">
+                        <li><strong>المساعدة في ايجاد مساقات جامعة الشرق الأوسط المكافئة للمساقات التي درسها الطالب في الجامعة التي انتقل منها.</strong></li>
+                        <li><strong>ايجاد نسبة التشابه بين مساق من جامعة الشرق الأوسط ومساق من جامعة اخرى.</strong></li>
+                        <li><strong>طباعة كشف تفصيلي للطالب يوضح جميع المساقات التي تم معادلتها وعدد الساعات المعادلة.</strong></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="text-center">
         
         <form asp-controller="Equalize" asp-action="Equalize" method="get">
@@ -235,23 +255,5 @@
             </div>
         </div>
 
-    </div>
-
-    <div class="row mt-4" id="about">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header custom-darker-danger">
-                    <h3>حول</h3>
-                </div>
-                <div class="card-body">
-                    <h3> يقوم نظام المعادلات بالوظائف الاتية:</h3>
-                    <ol class="arabic-numerals mt-3">
-                        <li><strong>المساعدة في ايجاد مساقات جامعة الشرق الأوسط المكافئة للمساقات التي درسها الطالب في الجامعة التي انتقل منها.</strong></li>
-                        <li><strong>ايجاد نسبة التشابه بين مساق من جامعة الشرق الأوسط ومساق من جامعة اخرى.</strong></li>
-                        <li><strong>طباعة كشف تفصيلي للطالب يوضح جميع المساقات التي تم معادلتها وعدد الساعات المعادلة.</strong></li>
-                    </ol>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
