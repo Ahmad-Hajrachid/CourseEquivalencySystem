@@ -4,78 +4,81 @@
     ViewData["Title"] = "Create";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - Create</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
-<body>
-    <div class="container">
-        <div class="text-center">
-            <h1>اضافة مادة</h1>
-        </div>
-        <hr />
-        <div class="form-group">
-            <label for="previousInstitution">المنشأة السابقة</label>
-            <select class="form-control" id="institutionId" onchange="fetchMajors(this.value)">
-                <option value="0">اختر المنشأة</option>
-            </select>
-        </div>
+<div class="container">
+    <div class="text-center">
+        <h1>اضافة مادة</h1>
+    </div>
+
+    <hr/>
+    <div class="form-group">
+        <label for="previousInstitution">المنشأة السابقة</label>
+        <select class="form-control" id="institutionId" onchange="fetchMajors(this.value)">
+           
+            
+        </select>
+
         <div class="form-group">
             <label for="major">التخصص</label>
-            <select class="form-control" id="major" onchange="updateMajorId(this.value)">
+            <select class="form-control" id="major" onchange="fetchCourses()">
                 <option value="">إختر التخصص</option>
             </select>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <form id="courseForm">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="courseNameAR" class="control-label"></label>
-                        <input type="text" name="courseNameAR" id="courseNameAR" class="form-control" />
-                        <span asp-validation-for="courseNameAR" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="courseNameEN" class="control-label"></label>
-                        <input type="text" name="courseNameEN" id="courseNameEN" class="form-control" />
-                        <span asp-validation-for="courseNameEN" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="courseDescriptionAR" class="control-label"></label>
-                        <input type="text" name="courseDescriptionAR" id="courseDescriptionAR" class="form-control" />
-                        <span asp-validation-for="courseDescriptionAR" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="courseDescriptionEN" class="control-label"></label>
-                        <input type="text" name="courseDescriptionEN" id="courseDescriptionEN" class="form-control" />
-                        <span asp-validation-for="courseDescriptionEN" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="courseWeightAR" class="control-label"></label>
-                        <input type="text" name="courseWeightAR" id="courseWeightAR" class="form-control" />
-                        <span asp-validation-for="courseWeightAR" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="courseWeightEN" class="control-label"></label>
-                        <input type="text" name="courseWeightEN" id="courseWeightEN" class="form-control" />
-                        <span asp-validation-for="courseWeightEN" class="text-danger"></span>
-                    </div>
-                    <input type="hidden" name="institutionId" id="hiddenInstitutionId" />
-                    <input type="hidden" name="majorId" id="hiddenMajorId" />
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-lg btn-danger rounded-pill mt-4">اضافة</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="text-center">
-            <a asp-action="Index" class="btn btn-lg btn-danger rounded-pill mt-3">الرجوع للقائمة</a>
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form method="post" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="courseNameAR" class="control-label"></label>
+                    <input type="text" name="courseNameAR" id="courseNameAR" class="form-control" />
+                    <span asp-validation-for="courseNameAR" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="courseNameEN" class="control-label"></label>
+                    <input type="text" name="courseNameEN" id="courseNameEN" class="form-control" />
+                    <span asp-validation-for="courseNameEN" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="courseDescriptionAR" class="control-label"></label>
+                    <input type="text" name="courseDescriptionAR" id="courseDescriptionAR" class="form-control" />
+                    <span asp-validation-for="courseDescriptionAR" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="courseDescriptionEN" class="control-label"></label>
+                    <input type="text" name="courseDescriptionEN" id="courseDescriptionEN" class="form-control" />
+                    <span asp-validation-for="courseDescriptionEN" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="courseWeightAR" class="control-label"></label>
+                    <input type="text" name="courseWeightAR" id="courseWeightAR" class="form-control" />
+                    <span asp-validation-for="courseWeightAR" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="courseWeightEN" class="control-label"></label>
+                    <input type="text" name="courseWeightEN" id="courseWeightEN" class="form-control" />
+                    <span asp-validation-for="courseWeightEN" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="institutionId" class="control-label"></label>
+                    <input type="text" name="institutionId" id="institutionId" class="form-control" />
+                    <span asp-validation-for="institutionId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="majorId" class="control-label"></label>
+                    <input type="text" name="majorId" id="majorId" class="form-control" />
+                    <span asp-validation-for="majorId" class="text-danger"></span>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" onclick="addData()" class="btn btn-lg btn-danger rounded-pill mt-4">اضافة</button>
+                </div>
+            </form>
         </div>
     </div>
+
+    <div class="text-center">
+        <a asp-action="Index" class="btn btn-lg btn-danger rounded-pill mt-3">الرجوع للقائمة</a>
+    </div>
+</div>
+</div>
 
     <script>
         function getInstitution() {

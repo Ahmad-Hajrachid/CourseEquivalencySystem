@@ -10,9 +10,6 @@
 <head>
     <title>Equalize Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
     <style>
         .card-header {
             background-color: #dc3545; 
@@ -23,25 +20,21 @@
 
 <body>
     <div class="container">
-        <header>
-        </header>
+        
 
-        <nav>
-
-        </nav>
-
-        <main>
+        <main class="main-body">
+            <div>
             <div class="card">
-                <div class="card-header">
+            <div class="card-header custom-darker-danger">
                     <h3>معلومات الطالب</h3>
                 </div>
-                <div class="card-body">
+            <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="previousInstitution">المنشأة السابقة</label>
                                 <select class="form-control" id="institutionId" onchange="fetchMajors(this.value)">
-                                    <option value="">إختر المنشأة</option>
+                                    <option value=""></option>
                                     @foreach (var institution in Model)
                                     {
                                         <option value="@institution.institutionID">@institution.institutionNameAR</option>
@@ -52,7 +45,7 @@
                             <div class="form-group">
                                 <label for="major">التخصص</label>
                                 <select class="form-control" id="major" onchange="fetchCourses()">
-                                    <option value="">إختر التخصص</option>
+                                    <option value=""></option>
                                 </select>
                             </div>
                         </div>
@@ -71,8 +64,8 @@
                                 <label for="nationality">الجنسية</label>
                                 <select class="form-control" id="nationality">
                                     <option value="">إختر الجنسية</option>
-                                    <option value="jordanian" selected>اردني</option>
-                                    <option value="foreigner" disabled>اجنبي</option>
+                                    <option value="jordanian">اردني</option>
+                                    <option value="foreigner">اجنبي</option>
                                 </select>
                             </div>
                         </div>
@@ -81,8 +74,8 @@
                                 <label for="Case">الحالة</label>
                                 <select class="form-control" id="Case">
                                     <option value="Case">إختر الحالة</option>
-                                    <option value="ComingFromUniversity" disabled>مجسر</option>
-                                    <option value="ComingFromCollege" selected>منتقل</option>
+                                    <option value="ComingFromUniversity">مجسر</option>
+                                    <option value="ComingFromCollege">منتقل</option>
                                 </select>
                             </div>
                         </div>
@@ -91,7 +84,7 @@
             </div>
 
             <div class="card mt-4">
-                <div class="card-header">
+            <div class="card-header custom-darker-danger">
                     <h3>اختيار المواد المجتازة</h3>
                 </div>
                 <div class="text-center mt-4">
@@ -100,7 +93,7 @@
                 <div class="card-body">
                     <table class="table" id="course">
                         <thead>
-                            <tr>
+                        <tr class="custom-darker-danger">
                                 <th>اسم المادة</th>
                                 <th>وصف المادة</th>
                                 <th>وزن المادة</th>
@@ -114,14 +107,16 @@
                 </div>
             </div>
 
-            
+            <div class="text-center mt-4">
+                <button type="button" class="btn btn-primary btn-danger">Equalize</button>
+                <button type="button" class="btn btn-secondary btn-danger">Print as PDF</button>
+            </div>
         </main>
 
 
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
 

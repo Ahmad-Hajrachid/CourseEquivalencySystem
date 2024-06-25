@@ -22,9 +22,6 @@ body {
   direction: rtl;
 }
 #about {
-    
-    border-top: 2px solid red;
-    
     margin-bottom: 20px;
      
 }
@@ -37,9 +34,6 @@ body {
     padding-top: 20px;
 }
 
-#faqs h2, #about h2 {
-        color: #333; 
-    }
 .rounded-pill {
     border-radius: 50px;
 }
@@ -47,4 +41,103 @@ body {
     border: 2px solid red;
     padding: 15px;
 }
+.custom-darker-danger {
+    background-color: #a71d2a !important; 
+    color: white !important; 
+}
 
+.background-image {
+    background-image: url('/images/meu.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.content-container {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.footer {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}
+.login-form-body {
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 20%;
+    margin-bottom: 20%;
+}
+.Course-form-body {
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: silver;
+    padding-bottom: 10px;
+    
+}
+.main-body {
+    background-color: #fff;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    padding-bottom: 20px;
+    
+}
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 18px;
+    text-align: left;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+    .styled-table thead tr {
+        border-bottom: 2px solid #a71d2a;
+        text-align:right;
+    }
+
+    .styled-table th,
+    .styled-table td {
+        text-align: right;
+        padding: 12px 15px;
+    }
+
+    .styled-table tbody tr {
+        border-bottom: 1px solid #a71d2a;
+    }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #a71d2a;
+        }
+
+.arabic-numerals {
+    counter-reset: list-counter; 
+}
+
+    .arabic-numerals li {
+        list-style: none; 
+        counter-increment: list-counter;
+    }
+
+        .arabic-numerals li::before {
+            content: counter(list-counter, arabic-indic) ". "; 
+            font-family: 'Arial', sans-serif; 
+            font-weight: bold;
+            font-size: large
+        }
