@@ -20,6 +20,7 @@
 </head>
 
 <body>
+    <div class="background-image"></div>
     <div class="container">
         <header>
         </header>
@@ -29,7 +30,7 @@
 
         <main>
             <div class="card">
-                <div class="card-header">
+                <div class="card-header custom-darker-danger">
                     <h3>معلومات الطالب</h3>
                 </div>
                 <div class="card-body">
@@ -71,16 +72,16 @@
             </div>
 
             <div class="card mt-4">
-                <div class="card-header">
+                <div class="card-header custom-darker-danger">
                     <h3>اختيار المواد المجتازة</h3>
                 </div>
                 <div class="text-center mt-4">
-                    <button type="button" class="btn btn-secondary btn-danger" onclick="print()">Print as PDF</button>
+                    <button type="button" class="btn btn-lg custom-darker-danger rounded-pill mt-4" onclick="print()">طباعة بصيغة PDF</button>
                 </div>
                 <div class="card-body">
                     <table class="table" id="course">
                         <thead>
-                            <tr>
+                            <tr class="custom-darker-danger">
                                 <th>اسم المادة</th>
                                 <th>وصف المادة</th>
                                 <th>وزن المادة</th>

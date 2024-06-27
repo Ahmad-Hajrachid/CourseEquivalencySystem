@@ -17,7 +17,7 @@ namespace CourseEquivalencySite.Services
 
         public Course getCourse(int id)
         {
-            var data = _context.course.Find(id);
+            var data = _context.course.Include(x=> x.institution).Include(x=>x.major).FirstOrDefault(x=> x.courseID== id);
             return data;
         }
 
@@ -32,7 +32,7 @@ namespace CourseEquivalencySite.Services
             List<Institution> data = _context.institutions.Where(i => i.isDeleted == false).ToList();
             return data;
         }
-
+        
         public List<Major> getMajors(int id)
         {
             List<Major> data = _context.majors.Where(i => i.isDeleted == false && i.institutionId == id).Include(i => i.institution).ToList();

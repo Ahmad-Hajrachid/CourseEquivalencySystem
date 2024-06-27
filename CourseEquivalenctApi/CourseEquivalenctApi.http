@@ -1,0 +1,6 @@
+@CourseEquivalenctApi_HostAddress = http://localhost:5228
+
+GET {{CourseEquivalenctApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

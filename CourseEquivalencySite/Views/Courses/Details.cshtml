@@ -13,40 +13,36 @@
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <th class="text-right">@Html.DisplayNameFor(model => model.courseID):</th>
-                        <td class="text-right">@Html.DisplayFor(model => model.courseID)</td>
-                    </tr>
-                    <tr>
-                        <th class="text-right">@Html.DisplayNameFor(model => model.courseNameAR):</th>
+                        <th class="text-right">اسم المادة بالعربية:</th>
                         <td class="text-right">@Html.DisplayFor(model => model.courseNameAR)</td>
                     </tr>
                     <tr>
-                        <th class="text-right">@Html.DisplayNameFor(model => model.courseNameEN):</th>
+                        <th class="text-right">اسم المادة بالإنجليزية:</th>
                         <td class="text-right">@Html.DisplayFor(model => model.courseNameEN)</td>
                     </tr>
                     <tr>
-                        <th class="text-right">@Html.DisplayNameFor(model => model.courseDescriptionAR):</th>
+                        <th class="text-right">وصف المادة بالعربية:</th>
                         <td class="text-right">@Html.DisplayFor(model => model.courseDescriptionAR)</td>
                     </tr>
                     <tr>
-                        <th class="text-right">@Html.DisplayNameFor(model => model.courseDescriptionEN):</th>
+                        <th class="text-right">وصف المادة بالإنجليزية:</th>
                         <td class="text-right">@Html.DisplayFor(model => model.courseDescriptionEN)</td>
                     </tr>
                     <tr>
-                        <th class="text-right">@Html.DisplayNameFor(model => model.courseWeightAR):</th>
+                        <th class="text-right">وزن المادة بالعربية:</th>
                         <td class="text-right">@Html.DisplayFor(model => model.courseWeightAR)</td>
                     </tr>
                     <tr>
-                        <th class="text-right">@Html.DisplayNameFor(model => model.courseWeightEN):</th>
+                        <th class="text-right">وزن المادة بالإنجليزية:</th>
                         <td class="text-right">@Html.DisplayFor(model => model.courseWeightEN)</td>
                     </tr>
                     <tr>
-                        <th class="text-right">@Html.DisplayNameFor(model => model.institutionId):</th>
-                        <td class="text-right">@Html.DisplayFor(model => model.institutionId)</td>
+                        <th class="text-right">اسم المنشأة:</th>
+                        <td class="text-right">@Html.DisplayFor(model => model.institution.institutionNameAR)</td>
                     </tr>
                     <tr>
-                        <th class="text-right">@Html.DisplayNameFor(model => model.majorId):</th>
-                        <td class="text-right">@Html.DisplayFor(model => model.majorId)</td>
+                        <th class="text-right">اسم التخصص:</th>
+                        <td class="text-right">@Html.DisplayFor(model => model.major.majorNameAR)</td>
                     </tr>
                 </tbody>
             </table>
@@ -57,4 +53,4 @@
             </div>
         </div>
     </div>
-</div> 
+</div>

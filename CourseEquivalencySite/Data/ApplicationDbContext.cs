@@ -13,6 +13,6 @@ namespace CourseEquivalencySite.Data
         public DbSet<Course> course { get; set; }
         public DbSet<Institution> institutions { get; set; }
         public DbSet<Major> majors { get; set; }
-        public DbSet<Users> users{ get; set; }
+        
     }
 }

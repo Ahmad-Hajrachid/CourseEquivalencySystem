@@ -2,6 +2,8 @@
 using CourseEquivalencySite.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+
 
 namespace CourseEquivalencySite.Controllers
 {
@@ -19,6 +21,7 @@ namespace CourseEquivalencySite.Controllers
           
             return View(data);
         }
+
         [HttpGet]
         public IActionResult getMajors(int id)
         {
@@ -44,4 +47,5 @@ namespace CourseEquivalencySite.Controllers
             return View();
                 }
     }
+
 }
