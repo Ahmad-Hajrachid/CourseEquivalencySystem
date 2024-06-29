@@ -3,12 +3,13 @@
 @{
     ViewData["Title"] = "Edit";
 }
+
 <div class="background-image"></div>
 <div class="row justify-content-center content-container Course-form-body">
     <h1 class="text-center custom-darker-danger">تعديل مادة</h1>
     <div>
         <div class="login-box p-4 rounded bg-light">
-            <form asp-action="Edit">
+            <form id="courseForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="courseID" />
 
@@ -49,19 +50,25 @@
                 </div>
 
                 <div class="form-group mb-1" style="text-align: right">
-                    <label asp-for="institutionId" class="form-label"><strong>معرف المؤسسة</strong></label>
-                    <input asp-for="institutionId" id="institutionId" class="form-control" />
-                    <span asp-validation-for="institutionId" class="text-danger"></span>
+                    <label for="institutionId" class="form-label"><strong>اسم المنشأة</strong></label>
+                    <select class="form-control" id="institutionId" onchange="fetchMajors(this.value)">
+                        <option value="">@Model.institution.institutionNameAR</option>
+
+                    </select>
+                    <input type="hidden" id="hiddenInstitutionIds" name="hiddenInstitutionId" value="@Model.institutionId" />
                 </div>
 
                 <div class="form-group mb-1" style="text-align: right">
-                    <label asp-for="majorId" class="form-label"><strong>معرف التخصص</strong></label>
-                    <input asp-for="majorId" id="majorId" class="form-control" />
-                    <span asp-validation-for="majorId" class="text-danger"></span>
+                    <label for="major" class="form-label"><strong>اسم التخصص</strong></label>
+                    <select class="form-control" id="major">
+                        <option value="">@Model.major.majorNameAR</option>
+                    </select>
+                    <input type="hidden" id="hiddenMajorId" name="hiddenMajorId" value="@Model.majorId" />
+
                 </div>
 
                 <div class="form-group text-center">
-                    <button type="submit" onclick="EditCourse()" class="btn btn-lg custom-darker-danger rounded-pill mt-4">حفظ</button>
+                    <button type="submit" class="btn btn-lg custom-darker-danger rounded-pill mt-4" onclick="EditCourse()">حفظ</button>
                 </div>
             </form>
 
@@ -72,11 +79,7 @@
     </div>
 </div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+    
 <script>
     function getInstitution() {
         $.ajax({
@@ -84,15 +87,18 @@
             type: 'GET',
             success: function (data) {
                 $('#institutionId').empty();
-                $('#institutionId').append('<option value="0">اختر المنشأة</option>');
                 $.each(data, function (index, item) {
-                    $('#institutionId').append('<option value="' + item.institutionID + '">' + item.institutionNameAR + '</option>');
+                    var option = '<option value="' + item.institutionID + '"';
+                        option += ' selected="selected"';
+                    option += '>' + item.institutionNameAR + '</option>';
+                    $('#institutionId').append(option);
                 });
 
-                var selectedInstitutionId = $('#hiddenInstitutionId').val();
+                var selectedInstitutionId = $('#hiddenInstitutionIds').val();
                 if (selectedInstitutionId) {
                     $('#institutionId').val(selectedInstitutionId).change();
                 }
+                fetchMajors(selectedInstitutionId);
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -106,7 +112,6 @@
             type: 'GET',
             success: function (data) {
                 $('#major').empty();
-                $('#major').append('<option value="">اختر التخصص</option>');
                 $.each(data, function (index, item) {
                     $('#major').append('<option value="' + item.majorID + '">' + item.majorNameAR + '</option>');
                 });
@@ -153,9 +158,6 @@
             });
     }
 
-    function updateMajorId(majorId) {
-        $('#hiddenMajorId').val(majorId);
-    }
 
     $(document).ready(function () {
         getInstitution();

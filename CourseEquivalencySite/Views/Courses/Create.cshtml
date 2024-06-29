@@ -9,7 +9,7 @@
         <h1 class="text-center custom-darker-danger">اضافة مادة</h1>
         <div>
             <div class="login-box p-4 rounded bg-light ">
-                <form method="post" asp-action="Create">
+                <form method="post" asp-action="Create" id="courseForm">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group mb-1" style="text-align: right">
@@ -20,7 +20,7 @@
 
                     <div class="form-group mb-1" style="text-align: right">
                         <label for="major" class="form-label"><strong>التخصص</strong></label>
-                        <select class="form-control" id="major" onchange="fetchCourses()">
+                        <select class="form-control" id="major" onchange="updateMajorId(this.value)">
                             <option value="">إختر التخصص</option>
                         </select>
                     </div>
@@ -61,14 +61,14 @@
                         <span asp-validation-for="courseWeightEN" class="text-danger"></span>
                     </div>
 
-                    <input type="hidden" name="institutionId" id="institutionId" class="form-control" />
+                    <input type="hidden" name="institutionId" id="hiddenInstitutionId" class="form-control" />
                     <span asp-validation-for="institutionId" class="text-danger"></span>
 
-                    <input type="hidden" name="majorId" id="majorId" class="form-control" />
+                    <input type="hidden" name="majorId" id="hiddenMajorId" class="form-control" />
                     <span asp-validation-for="majorId" class="text-danger"></span>
 
                     <div class="form-group text-center">
-                        <button type="submit" onclick="addData()" class="btn btn-lg custom-darker-danger rounded-pill mt-4">اضافة</button>
+                        <button type="submit" onclick="addData(event)" class="btn btn-lg custom-darker-danger rounded-pill mt-4">اضافة</button>
                     </div>
                 </form>
 
@@ -120,7 +120,7 @@
         }
 
         function addData(event) {
-            event.preventDefault(); // Prevent the default form submission
+            event.preventDefault();
 
             const formData = new FormData();
             formData.append('courseNameAR', $('#courseNameAR').val());
@@ -140,7 +140,7 @@
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    window.location.href = '@Url.Action("Index")'; 
+                    window.location.href = '@Url.Action("Index")';
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -149,7 +149,6 @@
 
         $(document).ready(function () {
             getInstitution();
-            $('#courseForm').on('submit', addData);
         });
     </script>
 </body>

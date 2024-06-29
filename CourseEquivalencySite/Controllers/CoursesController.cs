@@ -103,8 +103,8 @@ namespace CourseEquivalencySite.Controllers
             {
                 return NotFound();
             }
+            var course = _context.course.Include(x => x.institution).Include(x => x.major).FirstOrDefault(x => x.courseID == id);
 
-            var course = await _context.course.FindAsync(id);
             if (course == null)
             {
                 return NotFound();

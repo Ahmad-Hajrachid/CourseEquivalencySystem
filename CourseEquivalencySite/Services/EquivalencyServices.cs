@@ -72,7 +72,7 @@ namespace CourseEquivalencySite.Services
             }
             Course newData = _context.course.Find(id);
 
-            newData.courseNameAR = courseNameAR;
+                newData.courseNameAR = courseNameAR;
                 newData.courseNameEN = courseNameEN;
                 newData.courseDescriptionAR = courseDescriptionAR;
                 newData.courseDescriptionEN = courseDescriptionEN;

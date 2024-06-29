@@ -35,10 +35,14 @@
                                         <option value=""></option>
                                         @foreach (var institution in Model)
                                         {
-                                            <option value="@institution.institutionID">@institution.institutionNameAR</option>
+                                            if (institution.institutionID != 1)
+                                            {
+                                                <option value="@institution.institutionID">@institution.institutionNameAR</option>
+                                            }
                                         }
                                     </select>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="major">التخصص</label>
                                     <select class="form-control" id="major" onchange="fetchCourses()">
@@ -101,7 +105,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
                             </tbody>
                         </table>
                     </div>
@@ -125,6 +128,7 @@
                 $.each(data, function (index, item) {
                     $('#major').append('<option value="' + 0 + '">' + 'اختر التخصص' + '</option>');
                     $('#major').append('<option value="' + item.majorID + '">' + item.majorNameAR + '</option>');
+
                 });
                 institutionId = id;
             },
@@ -173,101 +177,101 @@
 <script>
     function equalize() {
         var studentName = $('#studentName').val();
-            var studentId = $('#studentId').val();
-            var nationality = $('#nationality').val();
-            var Case = $('#Case').val();
-            var selectedCourses = $('input[name="pass"]:checked').length > 0;
+        var studentId = $('#studentId').val();
+        var nationality = $('#nationality').val();
+        var Case = $('#Case').val();
+        var selectedCourses = $('input[name="pass"]:checked').length > 0;
 
-            if (studentName && studentId && nationality && Case && selectedCourses){
-        var selectedCourses = [];
-        $('input[name="pass"]:checked').each(function () {
-            selectedCourses.push($(this).val());
-        });
+        if (studentName && studentId && nationality && Case && selectedCourses) {
+            var selectedCourses = [];
+            $('input[name="pass"]:checked').each(function () {
+                selectedCourses.push($(this).val());
+            });
 
-        console.log('Selected Courses:', selectedCourses);
+            console.log('Selected Courses:', selectedCourses);
 
-        $.ajax({
-            url: '/Courses/GetGetSimilarity',
-            type: 'GET',
-            contentType: 'application/json',
-            success: function (data) {
-                console.log('Success! Raw data:', data);
-                try {
-                    if (!data || data.trim().length === 0) {
-                        throw new Error('Empty response');
-                    }
-
-                    var courses = JSON.parse(data);
-                    console.log('Parsed courses:', courses);
-
-                    var filteredData = [];
-                    courses.forEach(function (course) {
-                        if (selectedCourses.includes(course.MiddleEastUniversity.courseNameEN) && course.ZaytounehUniversity.courseNameEN == course.MiddleEastUniversity.courseNameEN) {
-                            console.log('Match found:', course.MiddleEastUniversity.courseName);
-                            filteredData.push(course);
+            $.ajax({
+                url: '/Courses/GetGetSimilarity',
+                type: 'GET',
+                contentType: 'application/json',
+                success: function (data) {
+                    console.log('Success! Raw data:', data);
+                    try {
+                        if (!data || data.trim().length === 0) {
+                            throw new Error('Empty response');
                         }
-                    });
 
-                    console.log('Filtered data:', filteredData);
+                        var courses = JSON.parse(data);
+                        console.log('Parsed courses:', courses);
 
-                    var table = $('#course');
-                    var thead = table.find('thead');
-                    thead.empty();
-
-                    if (filteredData.length > 0 && filteredData[0].similarityScore !== undefined) {
-                        thead.append('<tr class="custom-darker-danger">' +
-                            '<th>اسم المادة</th>' +
-                            '<th>وصف المادة</th>' +
-                            '<th>نسبة التشابه</th>' +
-                            '</tr>');
-                    } else {
-                        thead.append('<tr class="custom-darker-danger">' +
-                            '<th>اسم المادة</th>' +
-                            '<th>وصف المادة</th>' +
-                            '<th>وزن المادة</th>' +
-                            '<th>مجتازة</th>' +
-                            '</tr>');
-                    }
-
-                    var tbody = table.find('tbody');
-                    tbody.empty();
-
-                    filteredData.forEach(function (course) {
-                        if (course.ZaytounehUniversity) {
-                            var rowData;
-                            if (course.similarityScore !== undefined) {
-                                rowData = '<tr>' +
-                                    '<td>' + course.ZaytounehUniversity.courseNameAR + '</td>' +
-                                    '<td>' + course.ZaytounehUniversity.courseDescriptionAR + '</td>' +
-                                    '<td>' + course.similarityScore + '</td>' +
-                                    '</tr>';
-                            } else {
-                                rowData = '<tr>' +
-                                    '<td>' + course.ZaytounehUniversity.courseNameAR + '</td>' +
-                                    '<td>' + course.ZaytounehUniversity.courseDescriptionAR + '</td>' +
-                                    '<td>' + course.courseWeightAR + '</td>' +
-                                    '<td> <input type="checkbox" name="pass" value="' + course.courseNameEN + '"> </td>' +
-                                    '</tr>';
+                        var filteredData = [];
+                        courses.forEach(function (course) {
+                            if (selectedCourses.includes(course.MiddleEastUniversity.courseNameEN) && course.ZaytounehUniversity.courseNameEN == course.MiddleEastUniversity.courseNameEN) {
+                                console.log('Match found:', course.MiddleEastUniversity.courseName);
+                                filteredData.push(course);
                             }
+                        });
 
-                            tbody.append(rowData);
+                        console.log('Filtered data:', filteredData);
+
+                        var table = $('#course');
+                        var thead = table.find('thead');
+                        thead.empty();
+
+                        if (filteredData.length > 0 && filteredData[0].similarityScore !== undefined) {
+                            thead.append('<tr class="custom-darker-danger">' +
+                                '<th>اسم المادة</th>' +
+                                '<th>وصف المادة</th>' +
+                                '<th>نسبة التشابه</th>' +
+                                '</tr>');
+                        } else {
+                            thead.append('<tr class="custom-darker-danger">' +
+                                '<th>اسم المادة</th>' +
+                                '<th>وصف المادة</th>' +
+                                '<th>وزن المادة</th>' +
+                                '<th>مجتازة</th>' +
+                                '</tr>');
                         }
-                    });
 
-                    console.log('Table updated with filtered data.');
-                } catch (error) {
-                    console.error('Error parsing JSON data:', error);
-                    $('#course tbody').html('<tr><td colspan="4">Error parsing data</td></tr>');
+                        var tbody = table.find('tbody');
+                        tbody.empty();
+
+                        filteredData.forEach(function (course) {
+                            if (course.ZaytounehUniversity) {
+                                var rowData;
+                                if (course.similarityScore !== undefined) {
+                                    rowData = '<tr>' +
+                                        '<td>' + course.ZaytounehUniversity.courseNameAR + '</td>' +
+                                        '<td>' + course.ZaytounehUniversity.courseDescriptionAR + '</td>' +
+                                        '<td>' + course.similarityScore + '</td>' +
+                                        '</tr>';
+                                } else {
+                                    rowData = '<tr>' +
+                                        '<td>' + course.ZaytounehUniversity.courseNameAR + '</td>' +
+                                        '<td>' + course.ZaytounehUniversity.courseDescriptionAR + '</td>' +
+                                        '<td>' + course.courseWeightAR + '</td>' +
+                                        '<td> <input type="checkbox" name="pass" value="' + course.courseNameEN + '"> </td>' +
+                                        '</tr>';
+                                }
+
+                                tbody.append(rowData);
+                            }
+                        });
+
+                        console.log('Table updated with filtered data.');
+                    } catch (error) {
+                        console.error('Error parsing JSON data:', error);
+                        $('#course tbody').html('<tr><td colspan="4">Error parsing data</td></tr>');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching data:', error);
+                    $('#course tbody').html('<tr><td colspan="4">Error fetching data</td></tr>');
                 }
-            },
-            error: function (xhr, status, error) {
-                console.error('Error fetching data:', error);
-                $('#course tbody').html('<tr><td colspan="4">Error fetching data</td></tr>');
-            }
-        });
-         } else {
-                alert('الرجاء ملء جميع الحقول واختيار مواد للمعادلة.');
-            }
+            });
+        } else {
+            alert('الرجاء ملء جميع الحقول واختيار مواد للمعادلة.');
+        }
     }
 </script>
 
