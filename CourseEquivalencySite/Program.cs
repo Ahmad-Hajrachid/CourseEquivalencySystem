@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace CourseEquivalencySite
 {
@@ -38,6 +40,12 @@ namespace CourseEquivalencySite
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
+
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            });
         }
 
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -49,7 +57,6 @@ namespace CourseEquivalencySite
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -66,6 +73,7 @@ namespace CourseEquivalencySite
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapControllers(); // Ensure this line is included for API endpoints
             });
         }
     }

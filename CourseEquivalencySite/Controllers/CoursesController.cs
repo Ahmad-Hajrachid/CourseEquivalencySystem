@@ -8,6 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using CourseEquivalencySite.Data;
 using CourseEquivalencySite.Models;
 using CourseEquivalencySite.Interfaces;
+using System.Net.Http;
+using System.Text.Json;
+using System.Text;
+using Humanizer;
+using Newtonsoft.Json;
+using static IronPython.Runtime.Profiler;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace CourseEquivalencySite.Controllers
 {
@@ -21,6 +28,51 @@ namespace CourseEquivalencySite.Controllers
             _context = context;
             _services = services;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetGetSimilarity()
+        {
+            var serializerOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+
+
+            try
+            {
+
+                using (var http = new HttpClient())
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Get, "http://127.0.0.1:5000/api/courses/similarity");
+                    var content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+
+                    request.Content = content;
+                    var response = await http.SendAsync(request);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var data = await response.Content.ReadAsStringAsync();
+                        if (!string.IsNullOrEmpty(data))
+                        {
+                            return Json(data, serializerOptions);
+
+                        }
+
+
+
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in GetSimilarity: {ex.Message}");
+                return StatusCode(500, new { error = ex.Message });
+            }
+            return Json("");
+        }
+
         public IActionResult index()
         {
             var data =_services.getInstitutions();
@@ -77,4 +129,18 @@ namespace CourseEquivalencySite.Controllers
 
 
     }
+}
+
+public class CourseComparisonResult
+{
+    public CourseInfo MiddleEastUniversity { get; set; }
+    public CourseInfo ZaytounehUniversity { get; set; }
+    public double SimilarityScore { get; set; }
+}
+
+public class CourseInfo
+{
+    public int CourseID { get; set; }
+    public string CourseName { get; set; }
+    public string CourseDescription { get; set; }
 }

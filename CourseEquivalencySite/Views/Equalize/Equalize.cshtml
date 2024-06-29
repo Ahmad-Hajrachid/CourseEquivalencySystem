@@ -1,134 +1,129 @@
 ﻿@model IEnumerable<Institution>
 @{
     ViewData["Title"] = "Equalize";
-   
 }
-
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Equalize Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         .card-header {
-            background-color: #dc3545; 
+            background-color: #dc3545;
             color: white;
         }
     </style>
 </head>
-
 <body>
     <div class="background-image"></div>
     <div class="container">
-        
-
         <main class="main-body">
             <div>
-            <div class="card">
-            <div class="card-header custom-darker-danger">
-                    <h3>معلومات الطالب</h3>
-                </div>
-            <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="previousInstitution">المنشأة السابقة</label>
-                                <select class="form-control" id="institutionId" onchange="fetchMajors(this.value)">
-                                    <option value=""></option>
-                                    @foreach (var institution in Model)
-                                    {
-                                        <option value="@institution.institutionID">@institution.institutionNameAR</option>
-                                    }
-                                </select>
-
+                <div class="card">
+                    <div class="card-header custom-darker-danger">
+                        <h3>معلومات الطالب</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="previousInstitution">المنشأة السابقة</label>
+                                    <select class="form-control" id="institutionId" onchange="fetchMajors(this.value)">
+                                        <option value=""></option>
+                                        @foreach (var institution in Model)
+                                        {
+                                            <option value="@institution.institutionID">@institution.institutionNameAR</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="major">التخصص</label>
+                                    <select class="form-control" id="major" onchange="fetchCourses()">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="major">التخصص</label>
-                                <select class="form-control" id="major" onchange="fetchCourses()">
-                                    <option value=""></option>
-                                </select>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="studentName">اسم الطالب</label>
+                                    <input type="text" class="form-control" id="studentName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="studentId">الرقم الجامعي للطالب</label>
+                                    <input type="text" class="form-control" id="studentId">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="studentName">اسم الطالب</label>
-                                <input type="text" class="form-control" id="studentName">
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <label for="nationality">الجنسية</label>
+                                    <select class="form-control" id="nationality">
+                                        <option value="">إختر الجنسية</option>
+                                        <option value="jordanian">اردني</option>
+                                        <option value="foreigner" disabled>اجنبي</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="studentId">الرقم الجامعي للطالب</label>
-                                <input type="text" class="form-control" id="studentId">
-                            </div>
-                        </div>
-                        <div class="col-md-6 ">
-                            <div class="form-group">
-                                <label for="nationality">الجنسية</label>
-                                <select class="form-control" id="nationality">
-                                    <option value="">إختر الجنسية</option>
-                                    <option value="jordanian">اردني</option>
-                                    <option value="foreigner" disabled>اجنبي</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="Case">الحالة</label>
-                                <select class="form-control" id="Case">
-                                    <option value="Case">إختر الحالة</option>
-                                    <option value="ComingFromUniversity" disabled>مجسر</option>
-                                    <option value="ComingFromCollege">منتقل</option>
-                                </select>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Case">الحالة</label>
+                                    <select class="form-control" id="Case">
+                                        <option value="Case">إختر الحالة</option>
+                                        <option value="ComingFromUniversity" disabled>مجسر</option>
+                                        <option value="ComingFromCollege">منتقل</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card mt-4">
-            <div class="card-header custom-darker-danger">
-                    <h3>اختيار المواد المجتازة</h3>
-                </div>
-                <div class="text-center mt-4">
+                <div class="card mt-4">
+                    <div class="card-header custom-darker-danger">
+                        <h3>اختيار المواد المجتازة</h3>
+                    </div>
+                    <div class="text-center mt-4">
                         <button type="button" class="btn btn-lg custom-darker-danger rounded-pill mt-4" onclick="equalize()">معادلة</button>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button type="button" class="btn btn-lg custom-darker-danger rounded-pill mt-4" onclick="print()">طباعة بصيغة PDF</button>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="course">
+                            <thead>
+                                <tr class="custom-darker-danger">
+                                    <th>اسم المادة</th>
+                                    <th>وصف المادة</th>
+                                    <th>وزن المادة</th>
+                                    <th>مجتازة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <table class="table" id="course">
-                        <thead>
-                        <tr class="custom-darker-danger">
-                                <th>اسم المادة</th>
-                                <th>وصف المادة</th>
-                                <th>وزن المادة</th>
-                                <th>مجتازة</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
-                </div>
+
             </div>
-
-            
         </main>
-
-
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
 
 <script>
-
     function fetchMajors(id) {
         $.ajax({
             url: '/Equalize/getMajors/' + id,
             type: 'GET',
             success: function (data) {
-                $('#major').empty(); 
+                $('#major').empty();
                 $.each(data, function (index, item) {
                     $('#major').append('<option value="' + 0 + '">' + 'اختر التخصص' + '</option>');
-
                     $('#major').append('<option value="' + item.majorID + '">' + item.majorNameAR + '</option>');
                 });
                 institutionId = id;
@@ -139,15 +134,19 @@
         });
     }
 </script>
+
 <script>
     function fetchCourses() {
         var majorId = $('#major').val();
         var institutionId = $('#institutionId').val();
+
         $.ajax({
-            
             url: '/Equalize/getCourses/',
             type: 'GET',
-            data: { institutionId: institutionId, majorId: majorId },
+            data: {
+                institutionId: institutionId,
+                majorId: majorId
+            },
             success: function (result) {
                 $('#course tbody').empty();
                 $.each(result, function (index, item) {
@@ -155,9 +154,13 @@
                         '<td>' + item.courseNameAR + '</td>' +
                         '<td>' + item.courseDescriptionAR + '</td>' +
                         '<td>' + item.courseWeightAR + '</td>' +
-                        '<td> <input type="checkbox" name="pass"> </td>' +
+                        '<td> <input type="checkbox" name="pass" value="' + item.courseNameEN + '"> </td>' +
                         '</tr>';
                     $('#course tbody').append(row);
+                });
+
+                $('#course tbody').on('change', 'input[name="pass"]', function () {
+                    console.log($(this).val());
                 });
             },
             error: function (xhr, status, error) {
@@ -166,71 +169,143 @@
         });
     }
 </script>
+
 <script>
-    // function equalize() {
-    //     var institutionId = $('#institutionId').val();
-    //     var majorId = $('#major').val();
-    //     var studentName = encodeURIComponent($('#studentName').val());
-    //     var studentId = encodeURIComponent($('#studentId').val());
-    //     var nationality = $('#nationality').val();
-    //     var caseStatus = $('#Case').val();
-
-    //     var checkedCourses = [];
-    //     $('#course tbody input[name="pass"]:checked').each(function () {
-    //         checkedCourses.push(encodeURIComponent($(this).closest('tr').find('td:first').text()));
-    //     });
-
-    //     var url = '/Equalize/equalizedCourses?institutionId=' + institutionId +
-    //         '&majorId=' + majorId +
-    //         '&studentName=' + studentName +
-    //         '&studentId=' + studentId +
-    //         '&nationality=' + nationality +
-    //         '&caseStatus=' + caseStatus +
-    //         '&courses=' + checkedCourses.join(',');
-
-    //     window.location.href = url;
-    // }
-
-
     function equalize() {
-        var institutionId = $('#institutionId').val();
-        var majorId = $('#major').val();
         var studentName = $('#studentName').val();
-        var studentId = $('#studentId').val();
-        var nationality = $('#nationality').val();
-        var caseStatus = $('#Case').val();
+            var studentId = $('#studentId').val();
+            var nationality = $('#nationality').val();
+            var Case = $('#Case').val();
+            var selectedCourses = $('input[name="pass"]:checked').length > 0;
 
-        var checkedCourses = [];
-        $('#course tbody input[name="pass"]:checked').each(function () {
-            checkedCourses.push($(this).closest('tr').find('td:first').text());
+            if (studentName && studentId && nationality && Case && selectedCourses){
+        var selectedCourses = [];
+        $('input[name="pass"]:checked').each(function () {
+            selectedCourses.push($(this).val());
         });
 
-        var requestData = {
-            InstitutionId: institutionId,
-            MajorId: majorId,
-            StudentName: studentName,
-            StudentId: studentId,
-            Nationality: nationality,
-            CaseStatus: caseStatus,
-            Courses: checkedCourses
-        };
+        console.log('Selected Courses:', selectedCourses);
 
         $.ajax({
-            url: '/Equalize/RunPythonScript',
-            type: 'POST',
+            url: '/Courses/GetGetSimilarity',
+            type: 'GET',
             contentType: 'application/json',
-            data: JSON.stringify(requestData),
-            success: function (response) {
-                alert('Python script executed successfully. Output: ' + response.output);
+            success: function (data) {
+                console.log('Success! Raw data:', data);
+                try {
+                    if (!data || data.trim().length === 0) {
+                        throw new Error('Empty response');
+                    }
+
+                    var courses = JSON.parse(data);
+                    console.log('Parsed courses:', courses);
+
+                    var filteredData = [];
+                    courses.forEach(function (course) {
+                        if (selectedCourses.includes(course.MiddleEastUniversity.courseNameEN) && course.ZaytounehUniversity.courseNameEN == course.MiddleEastUniversity.courseNameEN) {
+                            console.log('Match found:', course.MiddleEastUniversity.courseName);
+                            filteredData.push(course);
+                        }
+                    });
+
+                    console.log('Filtered data:', filteredData);
+
+                    var table = $('#course');
+                    var thead = table.find('thead');
+                    thead.empty();
+
+                    if (filteredData.length > 0 && filteredData[0].similarityScore !== undefined) {
+                        thead.append('<tr class="custom-darker-danger">' +
+                            '<th>اسم المادة</th>' +
+                            '<th>وصف المادة</th>' +
+                            '<th>نسبة التشابه</th>' +
+                            '</tr>');
+                    } else {
+                        thead.append('<tr class="custom-darker-danger">' +
+                            '<th>اسم المادة</th>' +
+                            '<th>وصف المادة</th>' +
+                            '<th>وزن المادة</th>' +
+                            '<th>مجتازة</th>' +
+                            '</tr>');
+                    }
+
+                    var tbody = table.find('tbody');
+                    tbody.empty();
+
+                    filteredData.forEach(function (course) {
+                        if (course.ZaytounehUniversity) {
+                            var rowData;
+                            if (course.similarityScore !== undefined) {
+                                rowData = '<tr>' +
+                                    '<td>' + course.ZaytounehUniversity.courseNameAR + '</td>' +
+                                    '<td>' + course.ZaytounehUniversity.courseDescriptionAR + '</td>' +
+                                    '<td>' + course.similarityScore + '</td>' +
+                                    '</tr>';
+                            } else {
+                                rowData = '<tr>' +
+                                    '<td>' + course.ZaytounehUniversity.courseNameAR + '</td>' +
+                                    '<td>' + course.ZaytounehUniversity.courseDescriptionAR + '</td>' +
+                                    '<td>' + course.courseWeightAR + '</td>' +
+                                    '<td> <input type="checkbox" name="pass" value="' + course.courseNameEN + '"> </td>' +
+                                    '</tr>';
+                            }
+
+                            tbody.append(rowData);
+                        }
+                    });
+
+                    console.log('Table updated with filtered data.');
+                } catch (error) {
+                    console.error('Error parsing JSON data:', error);
+                    $('#course tbody').html('<tr><td colspan="4">Error parsing data</td></tr>');
+                }
             },
             error: function (xhr, status, error) {
-                if (xhr.responseJSON && xhr.responseJSON.error) {
-                    alert('Error executing Python script: ' + xhr.responseJSON.error);
-                } else {
-                    alert('Error executing Python script: ' + error);
-                }
+                console.error('Error fetching data:', error);
+                $('#course tbody').html('<tr><td colspan="4">Error fetching data</td></tr>');
             }
         });
+         } else {
+                alert('الرجاء ملء جميع الحقول واختيار مواد للمعادلة.');
+            }
     }
-
 </script>
+
+<script>
+    function print() {
+        console.log("Printing as PDF");
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({
+            orientation: 'portrait',
+            unit: 'px',
+            format: 'a4',
+        });
+
+        html2canvas(document.querySelector("main"), {
+            scale: 2
+        }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+
+            // Get the dimensions of the canvas
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+
+            // Calculate the dimensions to fit the A4 page size
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+
+            const pdfWidth = imgWidth * ratio;
+            const pdfHeight = imgHeight * ratio;
+
+            // Add the image to the PDF with the new dimensions
+            doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            doc.save('test.pdf');
+        }).catch(error => {
+            console.error('Error generating PDF: ', error);
+        });
+    }
+</script>
+
+
